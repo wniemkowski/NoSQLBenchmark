@@ -2,6 +2,7 @@
 using Enyim.Caching;
 using Enyim.Caching.Configuration;
 using Enyim.Caching.Memcached;
+using NoSqlBenchmark.Models;
 
 namespace NoSqlBenchmark
 {
@@ -16,8 +17,8 @@ namespace NoSqlBenchmark
 
         public void Test()
         {
-            _memcachedClient.Store(StoreMode.Set, "foo3", "baar");
-            var value = _memcachedClient.Stats("items");
+            _memcachedClient.Store(StoreMode.Set, "foo3", News.GetDemo());
+            var value = _memcachedClient.Get("foo3");
         }
 
         public void Dispose()
