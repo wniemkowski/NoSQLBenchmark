@@ -13,17 +13,17 @@
 *.userprefs
 
 # Build results
-[Dd]ebug/
-[Dd]ebugPublic/
-[Rr]elease/
-[Rr]eleases/
-x64/
-x86/
-bld/
-[Bb]in/
-[Oo]bj/
-[Ll]og/
-
+NoSqlBenchmark/[Dd]ebug/
+NoSqlBenchmark/[Dd]ebugPublic/
+NoSqlBenchmark/[Rr]elease/
+NoSqlBenchmark/[Rr]eleases/
+NoSqlBenchmark/x64/
+NoSqlBenchmark/x86/
+NoSqlBenchmark/bld/
+NoSqlBenchmark/[Bb]in/
+NoSqlBenchmark/[Oo]bj/
+NoSqlBenchmark/[Ll]og/
+DBs/
 # Visual Studio 2015 cache/options directory
 .vs/
 # Uncomment if you have tasks that create the project's static files in wwwroot
@@ -43,9 +43,9 @@ TestResult.xml
 dlldata.c
 
 # .NET Core
-project.lock.json
-project.fragment.lock.json
-artifacts/
+NoSqlBenchmark/project.lock.json
+NoSqlBenchmark/project.fragment.lock.json
+NoSqlBenchmark/artifacts/
 **/Properties/launchSettings.json
 
 *_i.c
@@ -130,20 +130,20 @@ AutoTest.Net/
 .sass-cache/
 
 # Installshield output folder
-[Ee]xpress/
+NoSqlBenchmark/[Ee]xpress/
 
 # DocProject is a documentation generator add-in
-DocProject/buildhelp/
-DocProject/Help/*.HxT
-DocProject/Help/*.HxC
-DocProject/Help/*.hhc
-DocProject/Help/*.hhk
-DocProject/Help/*.hhp
-DocProject/Help/Html2
-DocProject/Help/html
+NoSqlBenchmark/DocProject/buildhelp/
+NoSqlBenchmark/DocProject/Help/*.HxT
+NoSqlBenchmark/DocProject/Help/*.HxC
+NoSqlBenchmark/DocProject/Help/*.hhc
+NoSqlBenchmark/DocProject/Help/*.hhk
+NoSqlBenchmark/DocProject/Help/*.hhp
+NoSqlBenchmark/DocProject/Help/Html2
+NoSqlBenchmark/DocProject/Help/html
 
 # Click-Once directory
-publish/
+NoSqlBenchmark/publish/
 
 # Publish Web Output
 *.[Pp]ublish.xml
@@ -175,8 +175,8 @@ csx/
 *.build.csdef
 
 # Microsoft Azure Emulator
-ecf/
-rcf/
+NoSqlBenchmark/ecf/
+NoSqlBenchmark/rcf/
 
 # Windows Store app package directories and files
 AppPackages/
