@@ -1,10 +1,11 @@
+using NoSqlBenchmark.Benchmarks;
 using NoSqlBenchmark.Models;
 using ServiceStack.Redis;
 using ServiceStack.Redis.Generic;
 
 namespace NoSqlBenchmark
 {
-    internal class RedisBenchmark : IBenchmark
+    public class RedisBenchmark : IBenchmark
     {
         private RedisClient _redisClient;
         
@@ -18,12 +19,12 @@ namespace NoSqlBenchmark
             _redisClient = new RedisClient("localhost");
         }
 
-        public void Test()
+        public void Test<T>()
         {
-            IRedisTypedClient<News> redis = _redisClient.As<News>();
-            redis.SetEntry("foo",News.GetDemo());
-            //_redisClient.Add("foo", News.GetDemo());
-            var value = _redisClient.Get<News>("foo");
+            var mf = new ModelFactory();
+            var redis = _redisClient.As<T>();
+            redis.SetValue("foo", (T)mf.GetDemoModel<T>());
+            var value = _redisClient.Get<T>("foo");
         }
     }
 }

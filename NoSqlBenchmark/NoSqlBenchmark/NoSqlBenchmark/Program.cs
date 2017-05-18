@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Runtime.InteropServices;
-using ServiceStack.Redis;
+﻿using System.Collections.Generic;
+using NoSqlBenchmark.Benchmarks;
+using NoSqlBenchmark.Models;
 
 namespace NoSqlBenchmark
 {
@@ -10,21 +8,24 @@ namespace NoSqlBenchmark
     {
         static void Main(string[] args)
         {
+            IList<IBenchmark> benchmarks =
+                new List<IBenchmark>
+                {
+                    new DymanoDbBenchmark(),
+                    new MemcachedBenchmark(),
+                    new RedisBenchmark(),
+                   // new MongoDbBenchmark(),
+                    new CouchDbBenchmark()
+                };
 
-            var redisClient = new RedisClient("localhost");
-            
-            //using (var memcached = new MemcachedBenchmark())
-            //{
-            //    memcached.Connect();
-            //    memcached.Test();
-            //}
-            IList<IBenchmark> benchmarks = new List<IBenchmark> {new MemcachedBenchmark(), new RedisBenchmark()};
             foreach (var benchmark in benchmarks)
             {
                 benchmark.Connect();
-                benchmark.Test();
+                benchmark.Test<News>();
                 benchmark.Dispose();
             }
         }
     }
+
+
 }

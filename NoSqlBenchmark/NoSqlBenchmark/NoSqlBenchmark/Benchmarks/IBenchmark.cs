@@ -5,6 +5,6 @@ namespace NoSqlBenchmark
     internal interface IBenchmark : IDisposable
     {
         void Connect();
-        void Test();
+        void Test<T>();
     }
 }
