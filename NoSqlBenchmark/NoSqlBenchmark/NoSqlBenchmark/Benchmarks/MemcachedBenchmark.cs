@@ -1,7 +1,5 @@
 ﻿using System.Net;
-using Enyim.Caching;
 using Enyim.Caching.Configuration;
-using Enyim.Caching.Memcached;
 using NoSqlBenchmark.Benchmarks;
 using NoSqlBenchmark.Models;
 
@@ -9,23 +7,25 @@ namespace NoSqlBenchmark
 {
     public class MemcachedBenchmark : IBenchmark
     {
-        private MemcachedClient _memcachedClient;
+        private MemcachedConnector _db;
 
-        public void Connect()
+        public MemcachedBenchmark()
         {
-            _memcachedClient = new MemcachedClient(GetConfig());
+            _db = new MemcachedConnector();
         }
+
 
         public void Test<T>()
         {
             var mf = new ModelFactory();
-            _memcachedClient.Store(StoreMode.Set, "foo3", mf.GetDemoModel<T>());
-            var value = _memcachedClient.Get("foo3");
+            var demoModel = mf.GetDemoModel<T>() as BaseModel;
+            _db.Insert(demoModel);
+            var a = _db.Read<T>(demoModel.Id);
         }
 
         public void Dispose()
         {
-            _memcachedClient.Dispose();
+            _db.FlushDb();
         }
 
         private static MemcachedClientConfiguration GetConfig()

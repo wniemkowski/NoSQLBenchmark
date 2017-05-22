@@ -136,11 +136,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Benchmarks\DbConnectors\CouchDbConnector.cs" />
+    <Compile Include="Benchmarks\DbConnectors\DynamoDbConnector.cs" />
+    <Compile Include="Benchmarks\DbConnectors\IDbConnector.cs" />
+    <Compile Include="Benchmarks\DbConnectors\MemcachedConnector.cs" />
     <Compile Include="Models\ModelFactory.cs" />
     <Compile Include="Models\BaseModel.cs" />
     <Compile Include="Benchmarks\CouchDbBenchmark.cs" />
     <Compile Include="Benchmarks\DymanoDbBenchmark.cs" />
-    <Compile Include="Benchmarks\IBenchmark.cs" />
+    <Compile Include="Benchmarks\Interfaces\IBenchmark.cs" />
     <Compile Include="Benchmarks\MemcachedBenchmark.cs" />
     <Compile Include="Benchmarks\MongoDbBenchmark.cs" />
     <Compile Include="Models\News.cs" />

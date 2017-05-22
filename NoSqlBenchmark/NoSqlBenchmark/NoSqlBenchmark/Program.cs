@@ -11,16 +11,15 @@ namespace NoSqlBenchmark
             IList<IBenchmark> benchmarks =
                 new List<IBenchmark>
                 {
-                    new DymanoDbBenchmark(),
+                    //new DymanoDbBenchmark(),
+                    //new MongoDbBenchmark(),
                     new MemcachedBenchmark(),
-                    new RedisBenchmark(),
-                   // new MongoDbBenchmark(),
-                    new CouchDbBenchmark()
+                    //new RedisBenchmark(),
+                    //new CouchDbBenchmark()
                 };
 
             foreach (var benchmark in benchmarks)
             {
-                benchmark.Connect();
                 benchmark.Test<News>();
                 benchmark.Dispose();
             }

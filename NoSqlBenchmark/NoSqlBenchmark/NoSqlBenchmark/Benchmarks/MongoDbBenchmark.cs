@@ -10,6 +10,7 @@ namespace NoSqlBenchmark.Benchmarks
 
         public void Dispose()
         {
+            _client.DropDatabase("test");
             _client = null;
         }
 
