@@ -4,7 +4,7 @@ namespace NoSqlBenchmark.Benchmarks
 {
     public class ModelFactory
     {
-        public object GetDemoModel<T>()
+        public BaseModel GetDemoModel<T>() where T:BaseModel
         {
             if (typeof(T) == typeof(News))
             {

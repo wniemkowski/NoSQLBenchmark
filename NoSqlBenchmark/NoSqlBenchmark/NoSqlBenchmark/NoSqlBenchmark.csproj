@@ -138,8 +138,10 @@
   <ItemGroup>
     <Compile Include="Benchmarks\DbConnectors\CouchDbConnector.cs" />
     <Compile Include="Benchmarks\DbConnectors\DynamoDbConnector.cs" />
-    <Compile Include="Benchmarks\DbConnectors\IDbConnector.cs" />
+    <Compile Include="Benchmarks\Interfaces\IDbConnector.cs" />
     <Compile Include="Benchmarks\DbConnectors\MemcachedConnector.cs" />
+    <Compile Include="Benchmarks\DbConnectors\RedisConnector.cs" />
+    <Compile Include="Benchmarks\MongoConnector.cs" />
     <Compile Include="Models\ModelFactory.cs" />
     <Compile Include="Models\BaseModel.cs" />
     <Compile Include="Benchmarks\CouchDbBenchmark.cs" />

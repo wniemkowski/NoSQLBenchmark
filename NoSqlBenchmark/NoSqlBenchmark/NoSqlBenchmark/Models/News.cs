@@ -7,6 +7,7 @@ namespace NoSqlBenchmark.Models
     [DynamoDBTable("News")]
     public class News : BaseModel
     {
+        private static int _id = 0;
         [DynamoDBProperty]
         public string Message { get; set; }
         [DynamoDBProperty]
@@ -26,10 +27,10 @@ namespace NoSqlBenchmark.Models
             {
                 CreatedBy = "John",
                 Date = DateTime.Now,
-                Id = long.MaxValue,
+                Id = _id++,
                 Likes = int.MaxValue,
                 Message = "Hello",
-                Ids = new int[] { 1, 2, 3 },
+                Ids = new[] { 1, 2, 3 },
                 Op = new OP
                 {
                     Name = "a",
@@ -43,7 +44,7 @@ namespace NoSqlBenchmark.Models
     public class OP
     {
         [DynamoDBProperty]
-        public string Name{ get; set; }
+        public string Name { get; set; }
         [DynamoDBProperty]
         public int Age { get; set; }
     }

@@ -15,13 +15,18 @@ namespace NoSqlBenchmark.Benchmarks
             _db.FlushDb();
         }
         
-        public void Test<T>()
+        public void Test<T>() where T : BaseModel
         {
             var mf = new ModelFactory();
-            BaseModel model = mf.GetDemoModel<T>() as BaseModel;
+            BaseModel model = mf.GetDemoModel<T>();
 
             _db.Insert(model);
             var a = _db.Read<T>(model.Id);
+        }
+
+        public override string ToString()
+        {
+            return "CouchDB";
         }
     }
 }

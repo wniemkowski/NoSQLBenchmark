@@ -6,28 +6,31 @@ using ServiceStack.Aws.DynamoDb;
 
 namespace NoSqlBenchmark
 {
-    public class DymanoDbBenchmark : IBenchmark
+    public class DymanoDbBenchmark<T> : IBenchmark where T : BaseModel
     {
-        private readonly AmazonDynamoDBClient _client;
-        private PocoDynamo _db1;
-        private IDbConnector _db;
+        private readonly IDbConnector _db;
         public DymanoDbBenchmark()
         {
             _db = new DynamoDbConnector();
             _db.Connect();
+            _db.InitScheme<T>();
         }
         
-        public void Test<T>()
+        public void Test<T>() where T : BaseModel
         {
             var mf = new ModelFactory();
-            _db.InitScheme<T>();
             var data = (T) mf.GetDemoModel<T>();
             var inserted = _db.Insert<T>(data);
-            var a = _db.Read<T>((data as BaseModel).Id);
+            var a = _db.Read<T>(data.Id);
         }
         public void Dispose()
         {
             _db.FlushDb();
+        }
+
+        public override string ToString()
+        {
+            return "DynamoDB";
         }
     }
 }

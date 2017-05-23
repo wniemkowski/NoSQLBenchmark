@@ -17,23 +17,22 @@ namespace NoSqlBenchmark
 
         public void Connect()
         {
-            
+            FlushDb();
         }
 
-        public T Insert<T>(T data)
+        public T Insert<T>(T data) where T : BaseModel
         {
-            _memcachedClient.Store(StoreMode.Set, (data as BaseModel).Id.ToString(), data);
+            _memcachedClient.Store(StoreMode.Set, data.Id.ToString(), data);
             return data;
         }
 
-        public T Update<T>(long id)
+        public T Update<T>(long id, T data) where T : BaseModel
         {
-            var data = (T)_memcachedClient.Get(id.ToString());
             _memcachedClient.Store(StoreMode.Replace, id.ToString(), data);
             return data;
         }
 
-        public T Read<T>(long id)
+        public T Read<T>(long id) where T : BaseModel
         {
             return (T)_memcachedClient.Get(id.ToString());
         }
@@ -43,7 +42,7 @@ namespace NoSqlBenchmark
             _memcachedClient.FlushAll();
         }
 
-        public void InitScheme<T>()
+        public void InitScheme<T>() where T : BaseModel
         {
         }
 

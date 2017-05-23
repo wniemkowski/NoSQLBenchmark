@@ -1,33 +1,39 @@
-using MongoDB.Driver;
+using System;
 using NoSqlBenchmark.Models;
 
 namespace NoSqlBenchmark.Benchmarks
 {
-    public class MongoDbBenchmark : IBenchmark
+    public class MongoDbBenchmark<T> : IBenchmark where T:BaseModel
     {
-        private MongoClient _client;
-        private IMongoDatabase _db;
+        private readonly IDbConnector _db;
+
+        public MongoDbBenchmark()
+        {
+            _db = new MongoConnector<T>();
+            Connect();
+        }
 
         public void Dispose()
         {
-            _client.DropDatabase("test");
-            _client = null;
+            _db.FlushDb();
         }
 
         public void Connect()
         {
-            _client = new MongoClient("mongodb://localhost:27017");
-            _db = _client.GetDatabase("test");
-            
+            _db.Connect();
         }
 
-        public void Test<T>()
+        public void Test<T>() where T : BaseModel
         {
-            var collection = _db.GetCollection<T>("News");
             var mf = new ModelFactory();
+            var demo = mf.GetDemoModel<T>();
+            _db.Insert(demo);
+            var a =_db.Read<T>(demo.Id);
+        }
 
-            collection.InsertOne((T)mf.GetDemoModel<T>());
-            var a = collection.Find(news => (news as BaseModel).Id == long.MaxValue).First();
+        public override string ToString()
+        {
+            return "MongoDB";
         }
     }
 }

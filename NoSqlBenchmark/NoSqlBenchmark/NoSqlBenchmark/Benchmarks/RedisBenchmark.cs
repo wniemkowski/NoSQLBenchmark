@@ -1,71 +1,39 @@
-using NoSqlBenchmark.Benchmarks;
-using NoSqlBenchmark.Models;
+using NoSqlBenchmark.Benchmarks.DbConnectors;
 using ServiceStack.Redis;
-using ServiceStack.Redis.Generic;
 
-namespace NoSqlBenchmark
+namespace NoSqlBenchmark.Benchmarks
 {
-    public class RedisBenchmark : IBenchmark
+    public class RedisBenchmark<T> : IBenchmark where T:BaseModel
     {
-        private RedisClient _redisClient;
-        
+        private readonly IDbConnector _db;
+
+        public RedisBenchmark()
+        {
+            _db = new RedisConnector<T>();
+            _db.Connect();
+        }
+
         public void Dispose()
         {
-            _redisClient.Dispose();
+            _db.FlushDb();
         }
 
         public void Connect()
         {
-            _redisClient = new RedisClient("localhost");
+            _db.Connect();
         }
 
-        public void Test<T>()
+        public void Test<T>() where T : BaseModel
         {
             var mf = new ModelFactory();
-            var redis = _redisClient.As<T>();
-            redis.SetValue("foo", (T)mf.GetDemoModel<T>());
-            var value = _redisClient.Get<T>("foo");
-        }
-    }
-
-    class RedisConnector : IDbConnector
-    {
-        private RedisClient _redisClient;
-        public void Connect()
-        {
-            _redisClient = new RedisClient("localhost");
-            _typedClient = _redisClient.As<A>();
+            var data = mf.GetDemoModel<T>();
+            _db.Insert(data);
+            var readData = _db.Read<T>(data.Id);
         }
 
-        public T Insert<T>(T data)
+        public override string ToString()
         {
-            _typedClient.SetValue("foo", data as A);
-        }
-
-        public T Update<T>(long id)
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public T Read<T>(long id)
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public void FlushDb()
-        {
-            _redisClient.FlushAll();
-            _redisClient.Dispose();
-        }
-
-        public void InitScheme<T>()
-        {
-            
-        }
-
-        public static IRedisTypedClient<T> GetClient<T>()
-        {
-            
+            return "Redis";
         }
     }
 }

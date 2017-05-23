@@ -4,6 +4,6 @@ namespace NoSqlBenchmark
 {
     internal interface IBenchmark : IDisposable
     {
-        void Test<T>();
+        void Test<T>() where T : BaseModel;
     }
 }

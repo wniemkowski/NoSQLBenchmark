@@ -12,13 +12,14 @@ namespace NoSqlBenchmark
         public MemcachedBenchmark()
         {
             _db = new MemcachedConnector();
+            _db.Connect();
         }
 
 
-        public void Test<T>()
+        public void Test<T>() where T : BaseModel
         {
             var mf = new ModelFactory();
-            var demoModel = mf.GetDemoModel<T>() as BaseModel;
+            var demoModel = mf.GetDemoModel<T>();
             _db.Insert(demoModel);
             var a = _db.Read<T>(demoModel.Id);
         }
@@ -27,14 +28,9 @@ namespace NoSqlBenchmark
         {
             _db.FlushDb();
         }
-
-        private static MemcachedClientConfiguration GetConfig()
+        public override string ToString()
         {
-            var ip = IPAddress.Parse("127.0.0.1");
-            var port = 11211;
-            MemcachedClientConfiguration config = new MemcachedClientConfiguration();
-            config.Servers.Add(new IPEndPoint(ip, port));
-            return config;
+            return "Memcached";
         }
     }
 }

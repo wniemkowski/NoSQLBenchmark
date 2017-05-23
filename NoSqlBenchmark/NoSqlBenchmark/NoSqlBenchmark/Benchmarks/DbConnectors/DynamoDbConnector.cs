@@ -18,6 +18,7 @@ namespace NoSqlBenchmark.Benchmarks.DbConnectors
                 ProxyBypassOnLocal = true
             });
             _db = new PocoDynamo(_client);
+            FlushDb();
         }
 
         public void FlushDb()
@@ -25,27 +26,27 @@ namespace NoSqlBenchmark.Benchmarks.DbConnectors
             _db.DeleteAllTables();
         }
 
-        public void InitScheme<T>()
+        public void InitScheme<T>() where T : BaseModel
         {
             _db.RegisterTable<T>();
             _db.InitSchema();
         }
 
-        public T Insert<T>(T data)
+        public T Insert<T>(T data) where T : BaseModel
         {
-
             var a = _db.PutItem(data);
             return a;
         }
 
-        public T Read<T>(long id)
+        public T Read<T>(long id) where T : BaseModel
         {
             return _db.GetItem<T>(id);
         }
 
-        public T Update<T>(long id)
+        public T Update<T>(long id, T data) where T : BaseModel
         {
-            throw new NotImplementedException();
+            _db.PutItem(data);
+            return data;
         }
     }
 }
