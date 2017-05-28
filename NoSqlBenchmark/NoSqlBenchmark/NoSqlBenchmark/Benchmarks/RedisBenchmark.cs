@@ -1,5 +1,4 @@
 using NoSqlBenchmark.Benchmarks.DbConnectors;
-using ServiceStack.Redis;
 
 namespace NoSqlBenchmark.Benchmarks
 {

@@ -1,6 +1,6 @@
 ﻿namespace NoSqlBenchmark.Benchmarks
 {
-    interface IDbConnector
+    public interface IDbConnector
     {
         void Connect();
         T Insert<T>(T data) where T : BaseModel;

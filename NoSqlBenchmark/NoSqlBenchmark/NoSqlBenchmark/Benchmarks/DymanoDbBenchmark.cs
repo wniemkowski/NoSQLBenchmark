@@ -2,7 +2,6 @@ using Amazon.DynamoDBv2;
 using NoSqlBenchmark.Benchmarks;
 using NoSqlBenchmark.Benchmarks.DbConnectors;
 using NoSqlBenchmark.Models;
-using ServiceStack.Aws.DynamoDb;
 
 namespace NoSqlBenchmark
 {

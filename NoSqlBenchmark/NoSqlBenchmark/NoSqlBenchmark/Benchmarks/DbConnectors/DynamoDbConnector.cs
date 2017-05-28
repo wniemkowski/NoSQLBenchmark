@@ -1,52 +1,58 @@
 using System;
 using Amazon.DynamoDBv2;
-using ServiceStack.Aws.DynamoDb;
+//using ServiceStack.Aws.DynamoDb;
 
 namespace NoSqlBenchmark.Benchmarks.DbConnectors
 {
     public class DynamoDbConnector : IDbConnector
     {
         private AmazonDynamoDBClient _client;
-        private PocoDynamo _db;
+  //      private PocoDynamo _db;
 
         public void Connect()
         {
+            throw new NotImplementedException();
             _client = new AmazonDynamoDBClient("key", "pass", new AmazonDynamoDBConfig
             {
                 ServiceURL = "http://localhost:8000/",
                 AuthenticationRegion = "us-east-1",
                 ProxyBypassOnLocal = true
             });
-            _db = new PocoDynamo(_client);
+    //        _db = new PocoDynamo(_client);
             FlushDb();
         }
 
         public void FlushDb()
         {
-            _db.DeleteAllTables();
+            throw new NotImplementedException();
+            //      _db.DeleteAllTables();
         }
 
         public void InitScheme<T>() where T : BaseModel
         {
-            _db.RegisterTable<T>();
-            _db.InitSchema();
+            throw new NotImplementedException();
+            //    _db.RegisterTable<T>();
+            //  _db.InitSchema();
         }
 
         public T Insert<T>(T data) where T : BaseModel
         {
-            var a = _db.PutItem(data);
-            return a;
+            throw new NotImplementedException();
+            //var a = _db.PutItem(data);
+            //return a;
         }
 
         public T Read<T>(long id) where T : BaseModel
         {
-            return _db.GetItem<T>(id);
+            throw new NotImplementedException();
+            //return _db.GetItem<T>(id);
         }
 
         public T Update<T>(long id, T data) where T : BaseModel
         {
-            _db.PutItem(data);
-            return data;
+            throw new NotImplementedException();
+           // _db.PutItem(data);
+            //return data;
         }
     }
 }

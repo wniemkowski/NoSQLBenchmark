@@ -3,11 +3,10 @@ using ServiceStack.Redis.Generic;
 
 namespace NoSqlBenchmark.Benchmarks.DbConnectors
 {
-    class RedisConnector<TA> : IDbConnector where TA:BaseModel 
+    public class RedisConnector<TA> : IDbConnector where TA:BaseModel 
     {
         private RedisClient _redisClient;
         private IRedisTypedClient<TA> _typedClient;
-
         public void Connect()
         {
             _redisClient = new RedisClient("localhost");
@@ -17,13 +16,13 @@ namespace NoSqlBenchmark.Benchmarks.DbConnectors
 
         public T Insert<T>(T data) where T : BaseModel
         {
-            _typedClient.SetValue(data.Id.ToString(), (TA)(object)data);
+            _typedClient.SetEntry(data.Id.ToString(), (TA)(object)data);
             return data;
         }
 
         public T Update<T>(long id, T data) where T : BaseModel
         {
-            _typedClient.SetValue(id.ToString(), (TA)(object)data);
+            _typedClient.SetEntry(id.ToString(), (TA)(object)data);
             return data;
         }
 

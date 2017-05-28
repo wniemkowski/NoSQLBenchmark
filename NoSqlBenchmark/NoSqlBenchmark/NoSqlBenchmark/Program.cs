@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Threading;
 using NoSqlBenchmark.Benchmarks;
 using NoSqlBenchmark.Models;
 
@@ -11,14 +10,14 @@ namespace NoSqlBenchmark
     {
         static void Main(string[] args)
         {
-            var testCount = 1000;
+            var testCount = 10000;
             IList<IBenchmark> benchmarks =
                 new List<IBenchmark>
                 {
                     new MongoDbBenchmark<News>(),
                     new MemcachedBenchmark(),
                     new RedisBenchmark<News>(),
-                    new DymanoDbBenchmark<News>(),
+                    //new DymanoDbBenchmark<News>(),
                     new CouchDbBenchmark(),
                 };
 

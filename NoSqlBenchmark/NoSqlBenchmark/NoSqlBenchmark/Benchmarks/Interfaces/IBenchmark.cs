@@ -2,7 +2,7 @@ using System;
 
 namespace NoSqlBenchmark
 {
-    internal interface IBenchmark : IDisposable
+    public interface IBenchmark : IDisposable
     {
         void Test<T>() where T : BaseModel;
     }

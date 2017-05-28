@@ -1,0 +1,51 @@
+﻿<Window x:Class="Benchmark.GUI.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:metroChart1="clr-namespace:De.TorstenMandelkow.MetroChart;assembly=De.TorstenMandelkow.MetroChart"
+        xmlns:gui="clr-namespace:Benchmark.GUI"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="750" Width="1525" Loaded="Window_Loaded" MouseDoubleClick="Window_MouseDoubleClick">
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="9*" />
+        </Grid.ColumnDefinitions>
+        
+        <metroChart1:ClusteredBarChart
+            Grid.Column="1"
+            ChartTitle="NoSQL Benchmark"
+            ChartSubTitle="Results:"
+            SelectedItem="{Binding Path=SelectedItem, Mode=TwoWay}" Margin="0,0,0.4,-0.2" >
+            <metroChart1:ClusteredBarChart.Series>
+                <metroChart1:ChartSeries
+                    SeriesTitle="Database"
+                    DisplayMember="Db"
+                    ValueMember="Time"
+                    ItemsSource="{Binding Path=Results}"/>
+            </metroChart1:ClusteredBarChart.Series>
+        </metroChart1:ClusteredBarChart>
+        <Button x:Name="RunMongo" Content="Run Mongo" HorizontalAlignment="Left" Margin="10,134,0,0" VerticalAlignment="Top" Width="132" Click="RunMongo_Clicked"/>
+        <Button x:Name="RunMemcached" Content="Run Memcached" HorizontalAlignment="Left" Margin="10,158,0,0" VerticalAlignment="Top" Width="132" Click="RunMemcached_Clicked"/>
+        <Button x:Name="RunRedis" Content="Run Redis" HorizontalAlignment="Left" Margin="10,182,0,0" VerticalAlignment="Top" Width="132" Click="RunRedis_Clicked"/>
+        <Button x:Name="RunDynamo" Content="Run Dynamo" HorizontalAlignment="Left" Margin="10,206,0,0" VerticalAlignment="Top" Width="132" Click="RunDynamo_Clicked"/>
+        <Button x:Name="RunCouch" Content="Run CouchDB" HorizontalAlignment="Left" Margin="10,230,0,0" VerticalAlignment="Top" Width="132" Click="RunCouch_Clicked"/>
+    </Grid>
+</Window>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
