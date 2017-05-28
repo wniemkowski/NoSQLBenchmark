@@ -58,6 +58,10 @@
       <HintPath>..\packages\Panteam.MetroChart.1.0.1\lib\net40\Panteam.MetroChart.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="ServiceStack.Common, Version=3.9.71.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>.\ServiceStack.Common.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.IO.Compression" />
