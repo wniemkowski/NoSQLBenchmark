@@ -34,10 +34,10 @@
             <Label Content="Test Model:"></Label>
             <ComboBox x:Name="ModelCmb" SelectionChanged="ModelCmb_SelectionChanged"/>
             <Label Content="Count of operations:"></Label>
-            <TextBox x:Name="OperationTxb" PreviewTextInput="NumberValidationTextBox" TextChanged="OperationTxb_TextChanged"/>
+            <TextBox x:Name="OperationTxb" PreviewTextInput="NumberValidationTextBox" TextChanged="OperationTxb_TextChanged" Text="1000"/>
             <Separator/>
             <Label Content="Benchmarks:"></Label>
-            <Button x:Name="RunAllBenchmarks" Margin="0,2,0,2" Content="Run All" Click="RunAllBenchmarks_Clicked" FontWeight="Bold"/>
+            <Button x:Name="RunAllBenchmarks" Margin="0,2,0,6" Content="Run All" Click="RunAllBenchmarks_Clicked" FontWeight="Bold"/>
             <Button x:Name="RunMongo" Margin="0,2,0,2" Content="Run Mongo" Click="RunMongo_Clicked"/>
             <Button x:Name="RunMemcached" Margin="0,2,0,2" Content="Run Memcached" Click="RunMemcached_Clicked"/>
             <Button x:Name="RunRedis" Margin="0,2,0,2" Content="Run Redis" Click="RunRedis_Clicked"/>
