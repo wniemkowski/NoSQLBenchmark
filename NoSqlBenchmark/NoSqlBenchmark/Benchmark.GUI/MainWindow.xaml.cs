@@ -116,8 +116,7 @@ namespace Benchmark.GUI
 
         private void Clear_Clicked(object sender, RoutedEventArgs e)
         {
-            for(var i = 0 ;i< ViewModel.Results.Count;i++)
-                ViewModel.Results.RemoveAt(i);
+            ViewModel.ClearResults();
         }
     }
 }

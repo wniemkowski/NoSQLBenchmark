@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:metroChart1="clr-namespace:De.TorstenMandelkow.MetroChart;assembly=De.TorstenMandelkow.MetroChart"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="1025">
+        Title="NoSQLBenchmark" Height="450" Width="1025">
 
     <Grid>
         <Grid.ColumnDefinitions>
@@ -43,7 +43,7 @@
             <Button x:Name="RunRedis" Margin="0,2,0,2" Content="Run Redis" Click="RunRedis_Clicked"/>
             <Button x:Name="RunDynamo" Margin="0,2,0,2" Content="Run Dynamo" Click="RunDynamo_Clicked"/>
             <Button x:Name="RunCouch" Margin="0,2,0,2" Content="Run CouchDB" Click="RunCouch_Clicked"/>
-            <Button x:Name="ClearResults" Margin="0,2,0,2" Content="Clear results" Click="Clear_Clicked"/>
+            <Button x:Name="ClearResults" Margin="0,5,0,2" Content="Clear results" Click="Clear_Clicked"/>
         </StackPanel>
     </Grid>
 </Window>

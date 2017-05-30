@@ -7,7 +7,7 @@ namespace Benchmark.GUI
 {
     public class ViewModel
     {
-        public ObservableCollection<Result> Results { get; }
+        public ObservableCollection<Result> Results { get; set; }
 
         public ViewModel(List<Result> test)
         {
@@ -19,6 +19,14 @@ namespace Benchmark.GUI
         public ViewModel()
         {
             Results = new ObservableCollection<Result>();
+        }
+
+        public void ClearResults()
+        {
+            while (Results.Count > 0)
+            {
+                Results.RemoveAt(Results.Count - 1);
+            }
         }
 
         public object SelectedItem { get; set; } = null;
