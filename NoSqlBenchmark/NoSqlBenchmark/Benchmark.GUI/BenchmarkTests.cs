@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using NoSqlBenchmark;
 using NoSqlBenchmark.Benchmarks;
 using NoSqlBenchmark.Models;
+using NoSqlBenchmark.TestScenarios;
 
 namespace Benchmark.GUI
 {
@@ -18,40 +19,39 @@ namespace Benchmark.GUI
             {
                 new MongoDbBenchmark<News>(),
                 new MemcachedBenchmark(),
-               // new RedisBenchmark<News>(),
-                new DymanoDbBenchmark<News>(),
+                new RedisBenchmark<News>(),
+                //new DymanoDbBenchmark<News>(),
                 new CouchDbBenchmark(),
             };
         }
 
-        public Result TestSingle(IBenchmark benchmark)
+        public Result TestSingle(IBenchmark benchmark, IScenarioStrategy strategy)
         {
-            var stopwatch = ExecuteTest(benchmark);
-            var single = new Result();
-            single.Db = benchmark.ToString();
-            single.Time = stopwatch.ElapsedMilliseconds;
-            return single;
+            var stopwatch = ExecuteTest(benchmark, strategy);
+            return new Result
+            {
+                Db = benchmark.ToString(),
+                Time = stopwatch.ElapsedMilliseconds
+            };
+            
         }
 
-        public async Task<List<Result>> Test()
+        public async Task<List<Result>> Test(IScenarioStrategy strategy)
         {
             var results = new List<Result>();
             foreach (var benchmark in benchmarks)
             {
-                var stopwatch = ExecuteTest(benchmark);
+                var stopwatch = ExecuteTest(benchmark, strategy);
                 results.Add(new Result {Db = benchmark.ToString(), Time = stopwatch.ElapsedMilliseconds});
             }
             return results;
         }
 
-        private  Stopwatch ExecuteTest(IBenchmark benchmark)
+        private  Stopwatch ExecuteTest(IBenchmark benchmark, IScenarioStrategy strategy)
         {
             var stopwatch = new Stopwatch();
             stopwatch.Start();
-            for (var i = 1; i <= testCount; i++)
-            {
-                benchmark.Test<News>();
-            }
+            benchmark.Test<News>(strategy);
             stopwatch.Stop();
             benchmark.Dispose();
             return stopwatch;

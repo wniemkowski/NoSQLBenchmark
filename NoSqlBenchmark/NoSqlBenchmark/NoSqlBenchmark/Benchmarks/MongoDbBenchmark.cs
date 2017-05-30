@@ -1,5 +1,6 @@
 using System;
 using NoSqlBenchmark.Models;
+using NoSqlBenchmark.TestScenarios;
 
 namespace NoSqlBenchmark.Benchmarks
 {
@@ -23,12 +24,11 @@ namespace NoSqlBenchmark.Benchmarks
             _db.Connect();
         }
 
-        public void Test<T>() where T : BaseModel
+        public void Test<T>(IScenarioStrategy scenario) where T : BaseModel
         {
             var mf = new ModelFactory();
-            var demo = mf.GetDemoModel<T>();
-            _db.Insert(demo);
-            var a =_db.Read<T>(demo.Id);
+            var dataType = mf.GetModelDataType<T>();
+            scenario.ExecuteStrategy(_db, dataType);
         }
 
         public override string ToString()

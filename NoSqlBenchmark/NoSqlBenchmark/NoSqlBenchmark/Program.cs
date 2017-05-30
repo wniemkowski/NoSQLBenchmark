@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using NoSqlBenchmark.Benchmarks;
 using NoSqlBenchmark.Models;
+using NoSqlBenchmark.TestScenarios;
 
 namespace NoSqlBenchmark
 {
@@ -25,11 +26,8 @@ namespace NoSqlBenchmark
             {
                 var stopwatch = new Stopwatch();
                 stopwatch.Start();
-                for (var i = 1; i <= testCount; i++)
-                {
-                    Console.Write($"\r{i * 100 / testCount}%\t");
-                    benchmark.Test<News>();
-                }
+                //Console.Write($"\r{i * 100 / testCount}%\t");
+                benchmark.Test<News>(new JustInsertsStrategy() {CountOfOperations = 1000});
                 stopwatch.Stop();
                 Console.WriteLine($"{benchmark,9} resulted with {stopwatch.Elapsed:g}");
                 benchmark.Dispose();

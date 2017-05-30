@@ -1,4 +1,6 @@
 using NoSqlBenchmark.Benchmarks.DbConnectors;
+using NoSqlBenchmark.Models;
+using NoSqlBenchmark.TestScenarios;
 
 namespace NoSqlBenchmark.Benchmarks
 {
@@ -22,12 +24,11 @@ namespace NoSqlBenchmark.Benchmarks
             _db.Connect();
         }
 
-        public void Test<T>() where T : BaseModel
+        public void Test<T>(IScenarioStrategy scenario) where T : BaseModel
         {
             var mf = new ModelFactory();
-            var data = mf.GetDemoModel<T>();
-            _db.Insert(data);
-            var readData = _db.Read<T>(data.Id);
+            var dataType = mf.GetModelDataType<T>();
+            scenario.ExecuteStrategy(_db, dataType);
         }
 
         public override string ToString()

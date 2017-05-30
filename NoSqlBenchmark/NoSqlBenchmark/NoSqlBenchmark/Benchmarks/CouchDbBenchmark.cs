@@ -1,3 +1,5 @@
+using NoSqlBenchmark.TestScenarios;
+
 namespace NoSqlBenchmark.Benchmarks
 {
     public class CouchDbBenchmark : IBenchmark
@@ -15,13 +17,11 @@ namespace NoSqlBenchmark.Benchmarks
             _db.FlushDb();
         }
         
-        public void Test<T>() where T : BaseModel
+        public void Test<T>(IScenarioStrategy scenario) where T : BaseModel
         {
             var mf = new ModelFactory();
-            BaseModel model = mf.GetDemoModel<T>();
-
-            _db.Insert(model);
-            var a = _db.Read<T>(model.Id);
+            var dataType = mf.GetModelDataType<T>();
+            scenario.ExecuteStrategy(_db, dataType);
         }
 
         public override string ToString()

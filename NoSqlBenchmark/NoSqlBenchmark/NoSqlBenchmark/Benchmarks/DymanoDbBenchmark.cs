@@ -2,6 +2,7 @@ using Amazon.DynamoDBv2;
 using NoSqlBenchmark.Benchmarks;
 using NoSqlBenchmark.Benchmarks.DbConnectors;
 using NoSqlBenchmark.Models;
+using NoSqlBenchmark.TestScenarios;
 
 namespace NoSqlBenchmark
 {
@@ -15,12 +16,11 @@ namespace NoSqlBenchmark
             _db.InitScheme<T>();
         }
         
-        public void Test<T>() where T : BaseModel
+        public void Test<T>(IScenarioStrategy scenario) where T : BaseModel
         {
             var mf = new ModelFactory();
-            var data = (T) mf.GetDemoModel<T>();
-            var inserted = _db.Insert<T>(data);
-            var a = _db.Read<T>(data.Id);
+            var dataType = mf.GetModelDataType<T>();
+            scenario.ExecuteStrategy(_db, dataType);
         }
         public void Dispose()
         {

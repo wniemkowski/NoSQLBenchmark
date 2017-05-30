@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using NoSqlBenchmark.Benchmarks;
 using NoSqlBenchmark.Models;
+using NoSqlBenchmark.TestScenarios;
 
 namespace test
 {
@@ -13,7 +14,7 @@ namespace test
         static void Main(string[] args)
         {
             var a = new RedisBenchmark<News>();
-            a.Test<News>();
+            a.Test<News>(new EqualReadWriteStrategy());
         }
     }
 }

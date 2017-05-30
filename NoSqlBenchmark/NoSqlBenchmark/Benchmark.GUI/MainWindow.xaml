@@ -13,7 +13,7 @@
             <ColumnDefinition Width="*" />
             <ColumnDefinition Width="9*" />
         </Grid.ColumnDefinitions>
-        
+
         <metroChart1:ClusteredBarChart
             Grid.Column="1"
             ChartTitle="NoSQL Benchmark"
@@ -32,6 +32,8 @@
         <Button x:Name="RunRedis" Content="Run Redis" HorizontalAlignment="Left" Margin="10,182,0,0" VerticalAlignment="Top" Width="132" Click="RunRedis_Clicked"/>
         <Button x:Name="RunDynamo" Content="Run Dynamo" HorizontalAlignment="Left" Margin="10,206,0,0" VerticalAlignment="Top" Width="132" Click="RunDynamo_Clicked"/>
         <Button x:Name="RunCouch" Content="Run CouchDB" HorizontalAlignment="Left" Margin="10,230,0,0" VerticalAlignment="Top" Width="132" Click="RunCouch_Clicked"/>
+        <Button x:Name="button" Content="Start DBs" HorizontalAlignment="Left" Margin="10,55,0,0" VerticalAlignment="Top" Width="132" Click="StartDB_Clicked"/>
+        <ComboBox x:Name="StrategiesCmb" HorizontalAlignment="Left" Margin="10,79,0,0" VerticalAlignment="Top" Width="132" SelectionChanged="StrategiesCmb_SelectionChanged"/>
     </Grid>
 </Window>
 

@@ -2,6 +2,7 @@
 using Enyim.Caching.Configuration;
 using NoSqlBenchmark.Benchmarks;
 using NoSqlBenchmark.Models;
+using NoSqlBenchmark.TestScenarios;
 
 namespace NoSqlBenchmark
 {
@@ -16,12 +17,11 @@ namespace NoSqlBenchmark
         }
 
 
-        public void Test<T>() where T : BaseModel
+        public void Test<T>(IScenarioStrategy scenario) where T : BaseModel
         {
             var mf = new ModelFactory();
-            var demoModel = mf.GetDemoModel<T>();
-            _db.Insert(demoModel);
-            var a = _db.Read<T>(demoModel.Id);
+            var dataType = mf.GetModelDataType<T>();
+            scenario.ExecuteStrategy(_db, dataType);
         }
 
         public void Dispose()
