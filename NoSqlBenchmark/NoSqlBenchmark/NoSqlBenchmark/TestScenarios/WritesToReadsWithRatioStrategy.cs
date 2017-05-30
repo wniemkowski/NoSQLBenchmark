@@ -4,7 +4,7 @@ using NoSqlBenchmark.Models;
 
 namespace NoSqlBenchmark.TestScenarios
 {
-    public class WritesToReadSsWithRatioStrategy : IScenarioStrategy
+    public class WritesToReadsWithRatioStrategy : IScenarioStrategy
     {
         public float WritesToReadsRatio { get; set; }
         public int CountOfOperations { get; set; }

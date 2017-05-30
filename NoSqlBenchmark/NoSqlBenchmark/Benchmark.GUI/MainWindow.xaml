@@ -37,12 +37,12 @@
             <TextBox x:Name="OperationTxb" PreviewTextInput="NumberValidationTextBox" TextChanged="OperationTxb_TextChanged"/>
             <Separator/>
             <Label Content="Benchmarks:"></Label>
+            <Button x:Name="RunAllBenchmarks" Margin="0,2,0,2" Content="Run All" Click="RunAllBenchmarks_Clicked" FontWeight="Bold"/>
             <Button x:Name="RunMongo" Margin="0,2,0,2" Content="Run Mongo" Click="RunMongo_Clicked"/>
             <Button x:Name="RunMemcached" Margin="0,2,0,2" Content="Run Memcached" Click="RunMemcached_Clicked"/>
             <Button x:Name="RunRedis" Margin="0,2,0,2" Content="Run Redis" Click="RunRedis_Clicked"/>
             <Button x:Name="RunDynamo" Margin="0,2,0,2" Content="Run Dynamo" Click="RunDynamo_Clicked"/>
             <Button x:Name="RunCouch" Margin="0,2,0,2" Content="Run CouchDB" Click="RunCouch_Clicked"/>
-            <Button x:Name="RunAllBenchmarks" Margin="0,2,0,2" Content="Run CouchDB" Click="RunAllBenchmarks_Clicked"/>
         </StackPanel>
     </Grid>
 </Window>
