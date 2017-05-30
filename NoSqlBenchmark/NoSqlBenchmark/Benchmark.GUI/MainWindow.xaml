@@ -43,6 +43,7 @@
             <Button x:Name="RunRedis" Margin="0,2,0,2" Content="Run Redis" Click="RunRedis_Clicked"/>
             <Button x:Name="RunDynamo" Margin="0,2,0,2" Content="Run Dynamo" Click="RunDynamo_Clicked"/>
             <Button x:Name="RunCouch" Margin="0,2,0,2" Content="Run CouchDB" Click="RunCouch_Clicked"/>
+            <Button x:Name="ClearResults" Margin="0,2,0,2" Content="Clear results" Click="Clear_Clicked"/>
         </StackPanel>
     </Grid>
 </Window>

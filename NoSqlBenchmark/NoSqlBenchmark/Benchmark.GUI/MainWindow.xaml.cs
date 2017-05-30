@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
@@ -111,6 +112,12 @@ namespace Benchmark.GUI
         private void OperationTxb_TextChanged(object sender, TextChangedEventArgs e)
         {
             Strategies.CountOfOperation = int.Parse(OperationTxb.Text);
+        }
+
+        private void Clear_Clicked(object sender, RoutedEventArgs e)
+        {
+            for(var i = 0 ;i< ViewModel.Results.Count;i++)
+                ViewModel.Results.RemoveAt(i);
         }
     }
 }
