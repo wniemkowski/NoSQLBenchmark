@@ -36,6 +36,7 @@ namespace Benchmark.GUI
             StrategiesCmb.ItemsSource = Strategies.StrategyNames;
             ModelCmb.ItemsSource = Enum.GetValues(typeof(ModelDataType)).Cast<ModelDataType>(); 
             _benchmarkTests = new BenchmarkTests();
+            OperationTxb.Text = "1000";
         }
 
         private ViewModel ViewModel { get; set; }

@@ -34,7 +34,7 @@
             <Label Content="Test Model:"></Label>
             <ComboBox x:Name="ModelCmb" SelectionChanged="ModelCmb_SelectionChanged"/>
             <Label Content="Count of operations:"></Label>
-            <TextBox x:Name="OperationTxb" PreviewTextInput="NumberValidationTextBox" TextChanged="OperationTxb_TextChanged" Text="1000"/>
+            <TextBox x:Name="OperationTxb" PreviewTextInput="NumberValidationTextBox" TextChanged="OperationTxb_TextChanged"/>
             <Separator/>
             <Label Content="Benchmarks:"></Label>
             <Button x:Name="RunAllBenchmarks" Margin="0,2,0,6" Content="Run All" Click="RunAllBenchmarks_Clicked" FontWeight="Bold"/>
