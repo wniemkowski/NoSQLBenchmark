@@ -1,7 +1,8 @@
 using System;
+using NoSqlBenchmark.Models;
 using NoSqlBenchmark.TestScenarios;
 
-namespace NoSqlBenchmark
+namespace NoSqlBenchmark.Benchmarks.Interfaces
 {
     public interface IBenchmark : IDisposable
     {

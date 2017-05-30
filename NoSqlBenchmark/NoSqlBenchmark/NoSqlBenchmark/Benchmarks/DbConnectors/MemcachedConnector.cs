@@ -2,9 +2,10 @@ using System.Net;
 using Enyim.Caching;
 using Enyim.Caching.Configuration;
 using Enyim.Caching.Memcached;
-using NoSqlBenchmark.Benchmarks;
+using NoSqlBenchmark.Benchmarks.Interfaces;
+using NoSqlBenchmark.Models;
 
-namespace NoSqlBenchmark
+namespace NoSqlBenchmark.Benchmarks.DbConnectors
 {
     public class MemcachedConnector : IDbConnector
     {

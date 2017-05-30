@@ -1,6 +1,8 @@
 using MongoDB.Driver;
+using NoSqlBenchmark.Benchmarks.Interfaces;
+using NoSqlBenchmark.Models;
 
-namespace NoSqlBenchmark.Benchmarks
+namespace NoSqlBenchmark.Benchmarks.DbConnectors
 {
     public class MongoConnector<TA> : IDbConnector where TA:BaseModel
     {

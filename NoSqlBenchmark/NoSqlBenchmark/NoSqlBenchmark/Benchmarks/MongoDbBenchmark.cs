@@ -1,4 +1,6 @@
 using System;
+using NoSqlBenchmark.Benchmarks.DbConnectors;
+using NoSqlBenchmark.Benchmarks.Interfaces;
 using NoSqlBenchmark.Models;
 using NoSqlBenchmark.TestScenarios;
 

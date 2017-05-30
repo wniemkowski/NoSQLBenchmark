@@ -2,7 +2,7 @@
 
 namespace NoSqlBenchmark.Models
 {
-    public class BankModel : BaseModel
+    public class Bank : BaseModel
     {
         public string approvalfy { get; set; }
         public string board_approval_month { get; set; }

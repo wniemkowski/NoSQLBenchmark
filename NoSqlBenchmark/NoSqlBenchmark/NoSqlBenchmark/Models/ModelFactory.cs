@@ -1,8 +1,6 @@
 using System;
-using NoSqlBenchmark.Models;
-using NoSqlBenchmark.TestScenarios;
 
-namespace NoSqlBenchmark.Benchmarks
+namespace NoSqlBenchmark.Models
 {
     public class ModelFactory
     {
@@ -22,7 +20,7 @@ namespace NoSqlBenchmark.Benchmarks
                 case ModelDataType.News:
                     return News.GetDemo();
                 case ModelDataType.Bank:
-                    return BankModel.GetDemo();
+                    return Bank.GetDemo();
                 default:
                     throw new ArgumentOutOfRangeException(nameof(dataType), dataType, null);
             }

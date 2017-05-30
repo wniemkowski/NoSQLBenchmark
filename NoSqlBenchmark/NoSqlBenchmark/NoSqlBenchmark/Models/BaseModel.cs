@@ -1,7 +1,7 @@
 using System;
 using Amazon.DynamoDBv2.DataModel;
 
-namespace NoSqlBenchmark
+namespace NoSqlBenchmark.Models
 {
     [Serializable]
     public class BaseModel

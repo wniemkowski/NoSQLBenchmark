@@ -34,7 +34,7 @@ namespace Benchmark.GUI
     {
         public ObservableCollection<string> StrategyNames { get; }
         public string SelectedStrategy { get; set; }
-        public int OperationCount = 100;
+        public int CountOfOperation = 100;
 
         public StrategiesViewModel()
         {
@@ -52,26 +52,26 @@ namespace Benchmark.GUI
         {
             switch (SelectedStrategy)
             {
-                case "Writes": return new JustInsertsStrategy {CountOfOperations = OperationCount};
-                case "Reads": return new JustReadsStrategy {CountOfOperations = OperationCount};
+                case "Writes": return new JustInsertsStrategy {CountOfOperations = CountOfOperation};
+                case "Reads": return new JustReadsStrategy {CountOfOperations = CountOfOperation};
                 case "Writes/Reads - 1/10":
                     return
                         new WritesToReadsWithRatioStrategy
                         {
-                            CountOfOperations = OperationCount,
+                            CountOfOperations = CountOfOperation,
                             WritesToReadsRatio = 0.1f
                         };
                 case "Writes/Reads - 1/1":
                     return
                         new EqualReadWriteStrategy()
                         {
-                            CountOfOperations = OperationCount
+                            CountOfOperations = CountOfOperation
                         };
                 case "Writes/Reads - 10/1":
                     return
                         new ReadsToWritesWithRatioStrategy()
                         {
-                            CountOfOperations = OperationCount,
+                            CountOfOperations = CountOfOperation,
                             ReadsToWritesRatio = 0.1f
                         };
                 default: throw new ArgumentOutOfRangeException();

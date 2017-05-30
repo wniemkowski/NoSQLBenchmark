@@ -3,6 +3,7 @@ using System.Diagnostics;
 using System.Threading.Tasks;
 using NoSqlBenchmark;
 using NoSqlBenchmark.Benchmarks;
+using NoSqlBenchmark.Benchmarks.Interfaces;
 using NoSqlBenchmark.Models;
 using NoSqlBenchmark.TestScenarios;
 
@@ -10,7 +11,6 @@ namespace Benchmark.GUI
 {
     class BenchmarkTests
     {
-        int testCount = 100;
         private IList<IBenchmark> benchmarks;
         
         public void Connect()

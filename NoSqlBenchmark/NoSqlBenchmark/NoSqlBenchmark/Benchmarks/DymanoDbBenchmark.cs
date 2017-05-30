@@ -1,10 +1,9 @@
-using Amazon.DynamoDBv2;
-using NoSqlBenchmark.Benchmarks;
 using NoSqlBenchmark.Benchmarks.DbConnectors;
+using NoSqlBenchmark.Benchmarks.Interfaces;
 using NoSqlBenchmark.Models;
 using NoSqlBenchmark.TestScenarios;
 
-namespace NoSqlBenchmark
+namespace NoSqlBenchmark.Benchmarks
 {
     public class DymanoDbBenchmark<T> : IBenchmark where T : BaseModel
     {

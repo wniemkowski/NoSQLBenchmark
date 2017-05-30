@@ -1,5 +1,8 @@
 using System;
 using Amazon.DynamoDBv2;
+using NoSqlBenchmark.Benchmarks.Interfaces;
+using NoSqlBenchmark.Models;
+
 //using ServiceStack.Aws.DynamoDb;
 
 namespace NoSqlBenchmark.Benchmarks.DbConnectors

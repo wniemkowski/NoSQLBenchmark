@@ -1,13 +1,18 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
+using System.Linq;
 using System.Reflection;
+using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using NoSqlBenchmark;
 using NoSqlBenchmark.Benchmarks;
+using NoSqlBenchmark.Benchmarks.Interfaces;
 using NoSqlBenchmark.Models;
+using NoSqlBenchmark.TestScenarios;
 
 namespace Benchmark.GUI
 {
@@ -17,46 +22,24 @@ namespace Benchmark.GUI
     public partial class MainWindow : Window
     {
         private readonly BenchmarkTests _benchmarkTests;
-
+        private readonly BenchmarkFactory _benchmarkFactory = new BenchmarkFactory();
+        private ModelDataType selectedModel;
+        private Int32 _countOfOperations = 1000;
         public MainWindow()
         {
             InitializeComponent();
 
             ViewModel = new ViewModel();
-            Strategies = new StrategiesViewModel();
+            Strategies = new StrategiesViewModel() {CountOfOperation = _countOfOperations };
             DataContext = ViewModel;
 
             StrategiesCmb.ItemsSource = Strategies.StrategyNames;
+            ModelCmb.ItemsSource = Enum.GetValues(typeof(ModelDataType)).Cast<ModelDataType>(); 
             _benchmarkTests = new BenchmarkTests();
         }
 
         private ViewModel ViewModel { get; set; }
         private StrategiesViewModel Strategies { get; }
-
-        private void Window_Loaded(object sender, RoutedEventArgs e)
-        {
-        }
-
-        private void Window_MouseDoubleClick(object sender, MouseButtonEventArgs e)
-        {
-            var benchmarks = new List<IBenchmark>
-            {
-                new MongoDbBenchmark<News>(),
-                new MemcachedBenchmark(),
-                new RedisBenchmark<News>(),
-                //new DymanoDbBenchmark<News>(),
-                new CouchDbBenchmark()
-            };
-            var tests = new BenchmarkTests();
-            foreach (var benchmark in benchmarks)
-            {
-                var result = tests.TestSingle(benchmark, Strategies.GetStrategy());
-                ViewModel.Results.Add(result);
-            }
-
-            //var bench = tests.TestSingleAsync(new CouchDbBenchmark());
-            //DataContext = new ViewModel(tests.Test().Result);
-        }
 
         private void RunMongo_Clicked(object sender, RoutedEventArgs e)
         {
@@ -97,9 +80,36 @@ namespace Benchmark.GUI
             Process.Start("CMD.exe", "/C" + strCmdText);
         }
 
+        private void RunAllBenchmarks_Clicked(object sender, RoutedEventArgs e)
+        {
+            var benchmarks = _benchmarkFactory.GetAllBenchmarks(ModelDataType.News);
+            var tests = new BenchmarkTests();
+            foreach (var benchmark in benchmarks)
+            {
+                var result = tests.TestSingle(benchmark, Strategies.GetStrategy());
+                ViewModel.Results.Add(result);
+            }
+        }
+
         private void StrategiesCmb_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             Strategies.SelectedStrategy = StrategiesCmb.SelectedValue.ToString();
+        }
+
+        private void ModelCmb_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            selectedModel = (ModelDataType)ModelCmb.SelectedItem;
+        }
+
+        private void NumberValidationTextBox(object sender, TextCompositionEventArgs e)
+        {
+            Regex regex = new Regex("[^0-9]+");
+            e.Handled = regex.IsMatch(e.Text);
+        }
+
+        private void OperationTxb_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            Strategies.CountOfOperation = int.Parse(OperationTxb.Text);
         }
     }
 }

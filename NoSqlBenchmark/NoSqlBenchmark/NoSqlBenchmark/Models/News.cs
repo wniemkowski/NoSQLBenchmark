@@ -39,6 +39,7 @@ namespace NoSqlBenchmark.Models
             };
         }
     }
+
     [Serializable]
     [DynamoDBTable("News")]
     public class OP

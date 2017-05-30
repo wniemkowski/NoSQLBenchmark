@@ -1,7 +1,8 @@
 using LoveSeat;
-using ServiceStack;
+using NoSqlBenchmark.Benchmarks.Interfaces;
+using NoSqlBenchmark.Models;
 
-namespace NoSqlBenchmark.Benchmarks
+namespace NoSqlBenchmark.Benchmarks.DbConnectors
 {
     public class CouchDbConnector : IDbConnector
     {

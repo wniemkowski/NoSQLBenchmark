@@ -12,16 +12,7 @@ namespace NoSqlBenchmark
         static void Main(string[] args)
         {
             var testCount = 10000;
-            IList<IBenchmark> benchmarks =
-                new List<IBenchmark>
-                {
-                    new MongoDbBenchmark<News>(),
-                    new MemcachedBenchmark(),
-                    new RedisBenchmark<News>(),
-                    //new DymanoDbBenchmark<News>(),
-                    new CouchDbBenchmark(),
-                };
-
+            var benchmarks = new BenchmarkFactory().GetAllBenchmarks(ModelDataType.News);
             foreach (var benchmark in benchmarks)
             {
                 var stopwatch = new Stopwatch();

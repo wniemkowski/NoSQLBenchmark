@@ -1,4 +1,6 @@
-﻿namespace NoSqlBenchmark.Benchmarks
+﻿using NoSqlBenchmark.Models;
+
+namespace NoSqlBenchmark.Benchmarks.Interfaces
 {
     public interface IDbConnector
     {

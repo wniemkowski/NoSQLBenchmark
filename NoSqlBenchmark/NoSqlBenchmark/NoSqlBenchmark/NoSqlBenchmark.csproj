@@ -112,13 +112,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Benchmarks\BenchmarkFactory.cs" />
     <Compile Include="Benchmarks\DbConnectors\CouchDbConnector.cs" />
     <Compile Include="Benchmarks\DbConnectors\DynamoDbConnector.cs" />
     <Compile Include="Benchmarks\Interfaces\IDbConnector.cs" />
     <Compile Include="Benchmarks\DbConnectors\MemcachedConnector.cs" />
     <Compile Include="Benchmarks\DbConnectors\RedisConnector.cs" />
     <Compile Include="Benchmarks\DbConnectors\MongoConnector.cs" />
-    <Compile Include="Models\BankModel.cs" />
+    <Compile Include="Models\Bank.cs" />
     <Compile Include="Models\ModelFactory.cs" />
     <Compile Include="Models\BaseModel.cs" />
     <Compile Include="Benchmarks\CouchDbBenchmark.cs" />
@@ -130,7 +131,13 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Benchmarks\RedisBenchmark.cs" />
+    <Compile Include="TestScenarios\EqualReadWriteStrategy.cs" />
     <Compile Include="TestScenarios\IScenarioStrategy.cs" />
+    <Compile Include="Models\ModelDataType.cs" />
+    <Compile Include="TestScenarios\JustInsertsStrategy.cs" />
+    <Compile Include="TestScenarios\JustReadsStrategy.cs" />
+    <Compile Include="TestScenarios\ReadsToWritesWithRatioStrategy.cs" />
+    <Compile Include="TestScenarios\WritesToReadsWithRatioStrategy.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
