@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using NoSqlBenchmark.Benchmarks.Interfaces;
 using NoSqlBenchmark.Models;
-using NoSqlBenchmark.TestScenarios;
 
 namespace NoSqlBenchmark.Benchmarks
 {
@@ -22,6 +21,10 @@ namespace NoSqlBenchmark.Benchmarks
                     return GetMongoBenchmark(modelType);
                 case BenchmarkType.Redis:
                     return GetRedisBenchmark(modelType);
+                case BenchmarkType.RavenDB:
+                    return new RavenDbBenchmark();
+                case BenchmarkType.Couchbase:
+                    return new CouchbaaseBenchmark();
                 default:
                     throw new ArgumentOutOfRangeException(nameof(benchmarkType), benchmarkType, null);
             }
@@ -30,11 +33,13 @@ namespace NoSqlBenchmark.Benchmarks
         public IList<IBenchmark> GetAllBenchmarks(ModelDataType modelType)
         {
             var benchmarks = new List<IBenchmark>();
-            benchmarks.Add(new CouchDbBenchmark());
-            benchmarks.Add(new MemcachedBenchmark());
-            //benchmarks.Add(GetDynamoBenchmark(modelType));
             benchmarks.Add(GetMongoBenchmark(modelType));
+            benchmarks.Add(new MemcachedBenchmark());
             benchmarks.Add(GetRedisBenchmark(modelType));
+            benchmarks.Add(new CouchbaaseBenchmark());
+            benchmarks.Add(new RiakBenchmark());
+            
+            //benchmarks.Add(new RavenDbBenchmark());
             return benchmarks;
         }
 
@@ -84,6 +89,8 @@ namespace NoSqlBenchmark.Benchmarks
         DynamoDB,
         Memcached,
         MongoDB,
-        Redis
+        Redis,
+        RavenDB,
+        Couchbase
     }
 }

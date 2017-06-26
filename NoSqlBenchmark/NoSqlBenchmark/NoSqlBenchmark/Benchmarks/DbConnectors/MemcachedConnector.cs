@@ -1,3 +1,4 @@
+using System.Configuration;
 using System.Net;
 using Enyim.Caching;
 using Enyim.Caching.Configuration;
@@ -49,7 +50,7 @@ namespace NoSqlBenchmark.Benchmarks.DbConnectors
 
         private static MemcachedClientConfiguration GetConfig()
         {
-            var ip = IPAddress.Parse("127.0.0.1");
+            var ip = IPAddress.Parse(ConfigurationManager.AppSettings["DbIpAddress"]);
             var port = 11211;
             MemcachedClientConfiguration config = new MemcachedClientConfiguration();
             config.Servers.Add(new IPEndPoint(ip, port));

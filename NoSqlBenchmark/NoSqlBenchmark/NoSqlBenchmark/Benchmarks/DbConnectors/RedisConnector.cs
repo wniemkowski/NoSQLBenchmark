@@ -1,3 +1,4 @@
+using System.Configuration;
 using NoSqlBenchmark.Benchmarks.Interfaces;
 using NoSqlBenchmark.Models;
 using ServiceStack.Redis;
@@ -11,7 +12,7 @@ namespace NoSqlBenchmark.Benchmarks.DbConnectors
         private IRedisTypedClient<TA> _typedClient;
         public void Connect()
         {
-            _redisClient = new RedisClient("localhost");
+            _redisClient = new RedisClient(ConfigurationManager.AppSettings["DbIpAddress"]);
             _typedClient = _redisClient.As<TA>();
             FlushDb();
         }

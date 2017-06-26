@@ -1,3 +1,5 @@
+using System;
+using System.Configuration;
 using LoveSeat;
 using NoSqlBenchmark.Benchmarks.Interfaces;
 using NoSqlBenchmark.Models;
@@ -11,18 +13,18 @@ namespace NoSqlBenchmark.Benchmarks.DbConnectors
 
         public void Connect()
         {
-            _client = new CouchClient("localhost", 5984, "user", "password", false, AuthenticationType.Basic);
+            _client = new CouchClient(ConfigurationManager.AppSettings["DbIpAddress"], 5984, "user", "password", false, AuthenticationType.Basic);
             FlushDb();
             _client.CreateDatabase("test");
             _db = _client.GetDatabase("test");
             _db.SetDefaultDesignDoc("docs");
-            
         }
 
         public T Insert<T>(T data) where T : BaseModel
         {
             var demo = _db.ObjectSerializer.Serialize(data);
             var a = _db.CreateDocument(data.Id.ToString(), demo);
+
             return data;
         }
         
