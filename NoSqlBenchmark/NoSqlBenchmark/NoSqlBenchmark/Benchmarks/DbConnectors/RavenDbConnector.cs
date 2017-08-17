@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Configuration;
 using NoSqlBenchmark.Benchmarks.Interfaces;
 using NoSqlBenchmark.Models;
@@ -14,7 +15,8 @@ namespace NoSqlBenchmark.Benchmarks.DbConnectors
         private IDocumentSession _session;
         public void Connect()
         {
-            store = new DocumentStore() { Url = @"http://" + ConfigurationManager.AppSettings["DbIpAddress"] + ":8080" };
+            var url = "http://" + ConfigurationManager.AppSettings["DbIpAddress"] + ":8080";
+            store = new DocumentStore() { Url = url };
             store.Initialize();
             var a = store.OpenSession("test");
             FlushDb();

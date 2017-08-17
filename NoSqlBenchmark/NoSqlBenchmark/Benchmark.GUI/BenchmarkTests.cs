@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Diagnostics;
 using System.Threading.Tasks;
-using NoSqlBenchmark;
 using NoSqlBenchmark.Benchmarks;
 using NoSqlBenchmark.Benchmarks.Interfaces;
 using NoSqlBenchmark.Models;
@@ -15,45 +14,35 @@ namespace Benchmark.GUI
         
         public void Connect()
         {
-            benchmarks = new List<IBenchmark>
-            {
-                new MongoDbBenchmark<News>(),
-                new MemcachedBenchmark(),
-                new RedisBenchmark<News>(),
-                //new DymanoDbBenchmark<News>(),
-                new CouchDbBenchmark(),
-            };
+            benchmarks = new BenchmarkFactory().GetAllBenchmarks(ModelDataType.Reddit);
         }
 
-        public Result TestSingle(IBenchmark benchmark, IScenarioStrategy strategy)
+        public Result TestSingle<T>(IBenchmark benchmark, IScenarioStrategy strategy) where T : BaseModel
         {
-            var stopwatch = ExecuteTest(benchmark, strategy);
+            var delays = new List<long>();
+            var stopwatch = ExecuteTest<T>(benchmark, strategy, ref delays);
             return new Result
             {
                 Db = benchmark.ToString(),
-                Time = stopwatch.ElapsedMilliseconds
-            };
-            
+                Time = stopwatch.ElapsedMilliseconds,
+                Delays = delays
+            };            
         }
 
-        public async Task<List<Result>> Test(IScenarioStrategy strategy)
-        {
-            var results = new List<Result>();
-            foreach (var benchmark in benchmarks)
-            {
-                var stopwatch = ExecuteTest(benchmark, strategy);
-                results.Add(new Result {Db = benchmark.ToString(), Time = stopwatch.ElapsedMilliseconds});
-            }
-            return results;
-        }
-
-        private  Stopwatch ExecuteTest(IBenchmark benchmark, IScenarioStrategy strategy)
+        private  Stopwatch ExecuteTest<T>(IBenchmark benchmark, IScenarioStrategy strategy, ref List<long> delays) where T : BaseModel
         {
             var stopwatch = new Stopwatch();
+            if (strategy is JustReadsStrategy)
+            {
+                //populateDB
+                benchmark.Test<T>(new JustInsertsStrategy{CountOfOperations = strategy.CountOfOperations});
+                ModelFactory._iterator = ModelFactory.Max;
+            }
             stopwatch.Start();
-            benchmark.Test<News>(strategy);
+            benchmark.Test<T>(strategy);
             stopwatch.Stop();
             benchmark.Dispose();
+            delays = benchmark.Delays;
             return stopwatch;
         }
     }

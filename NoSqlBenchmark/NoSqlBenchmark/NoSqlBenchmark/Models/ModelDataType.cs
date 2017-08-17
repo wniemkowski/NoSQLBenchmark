@@ -2,7 +2,8 @@
 {
     public enum ModelDataType
     {
-        News,
-        Bank
+        Reddit,
+        Tweeter,
+        Youtube
     }
 }

@@ -2,18 +2,25 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
+using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Text.RegularExpressions;
+using System.Threading;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Forms;
 using System.Windows.Input;
 using NoSqlBenchmark;
 using NoSqlBenchmark.Benchmarks;
 using NoSqlBenchmark.Benchmarks.Interfaces;
 using NoSqlBenchmark.Models;
 using NoSqlBenchmark.TestScenarios;
+using OxyPlot;
+using OxyPlot.Series;
+using ServiceStack.Common;
 
 namespace Benchmark.GUI
 {
@@ -30,10 +37,10 @@ namespace Benchmark.GUI
         {
             InitializeComponent();
 
+            WindowState = WindowState.Maximized;
             ViewModel = new ViewModel();
             Strategies = new StrategiesViewModel() {CountOfOperation = _countOfOperations };
             DataContext = ViewModel;
-
             StrategiesCmb.ItemsSource = Strategies.StrategyNames;
             ModelCmb.ItemsSource = Enum.GetValues(typeof(ModelDataType)).Cast<ModelDataType>(); 
             _benchmarkTests = new BenchmarkTests();
@@ -45,33 +52,58 @@ namespace Benchmark.GUI
 
         private void RunMongo_Clicked(object sender, RoutedEventArgs e)
         {
-            RunSingleBenchmark(new MongoDbBenchmark<News>());
+            RunSingleBenchmark(_benchmarkFactory.GetBenchmark(BenchmarkType.MongoDB, selectedModel));
         }
 
         private void RunMemcached_Clicked(object sender, RoutedEventArgs e)
         {
-            RunSingleBenchmark(new MemcachedBenchmark());
+            RunSingleBenchmark(_benchmarkFactory.GetBenchmark(BenchmarkType.Memcached, selectedModel));
         }
 
         private void RunRedis_Clicked(object sender, RoutedEventArgs e)
         {
-            RunSingleBenchmark(new RedisBenchmark<News>());
+            RunSingleBenchmark(_benchmarkFactory.GetBenchmark(BenchmarkType.Redis, selectedModel));
         }
 
         private void RunDynamo_Clicked(object sender, RoutedEventArgs e)
         {
-            RunSingleBenchmark(new DymanoDbBenchmark<News>());
+            RunSingleBenchmark(_benchmarkFactory.GetBenchmark(BenchmarkType.Riak, selectedModel));
         }
 
         private void RunCouch_Clicked(object sender, RoutedEventArgs e)
         {
-            RunSingleBenchmark(new CouchDbBenchmark());
+            RunSingleBenchmark(_benchmarkFactory.GetBenchmark(BenchmarkType.Couchbase, selectedModel));
+        }
+
+        private void RunOrient_Clicked(object sender, RoutedEventArgs e)
+        {
+            RunSingleBenchmark(_benchmarkFactory.GetBenchmark(BenchmarkType.OrientDb, selectedModel));
         }
 
         private void RunSingleBenchmark(IBenchmark benchmark)
         {
-            var result = _benchmarkTests.TestSingle(benchmark, Strategies.GetStrategy());
+            Result result;
+            ModelFactory.Populate(selectedModel, Strategies.CountOfOperation);
+            switch (selectedModel)
+            {
+                case ModelDataType.Reddit:
+                    result = _benchmarkTests.TestSingle<RedditModel>(benchmark, Strategies.GetStrategy());
+                    break;
+                case ModelDataType.Tweeter:
+                    result = _benchmarkTests.TestSingle<TweeterModel>(benchmark, Strategies.GetStrategy());
+                    break;
+                case ModelDataType.Youtube:
+                    result = _benchmarkTests.TestSingle<YoutubeModel>(benchmark, Strategies.GetStrategy());
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
             ViewModel.Results.Add(result);
+            ViewModel.AddPoints(result.Points, benchmark.ToString());
+            Chart.InvalidateVisual();
+            OXplot.InvalidateVisual();
+            Thread.Sleep(1000);
+            ScreenShot();
         }
 
         private void StartDB_Clicked(object sender, RoutedEventArgs e)
@@ -84,12 +116,51 @@ namespace Benchmark.GUI
 
         private void RunAllBenchmarks_Clicked(object sender, RoutedEventArgs e)
         {
-            var benchmarks = _benchmarkFactory.GetAllBenchmarks(ModelDataType.News);
+            MultiTest();
+        }
+
+        private void MultiTest()
+        {
+            //foreach (var model in Enum.GetValues(typeof(ModelDataType)))
+            //{
+            //    selectedModel = (ModelDataType) model;
+                //foreach (var strategy in Strategies.StrategyNames)
+                //{
+                //    Strategies.SelectedStrategy = strategy;
+                RunAll();
+                //}
+            //}
+        }
+
+        public void RunAll()
+        {
+            Result result;
             var tests = new BenchmarkTests();
-            foreach (var benchmark in benchmarks)
+            for (var i = 1; i < 2; i++)
             {
-                var result = tests.TestSingle(benchmark, Strategies.GetStrategy());
-                ViewModel.Results.Add(result);
+                var benchmarkTests = _benchmarkFactory.GetAllBenchmarks(selectedModel);
+                foreach (var benchmark in benchmarkTests)
+                {
+                    Strategies.CountOfOperation = i == 0 ? 100 : int.Parse(OperationTxb.Text);
+                    ModelFactory.Populate(selectedModel, int.Parse(OperationTxb.Text));
+                    switch (selectedModel)
+                    {
+                        case ModelDataType.Reddit:
+                            result = tests.TestSingle<RedditModel>(benchmark, Strategies.GetStrategy()); 
+                            break;
+                        case ModelDataType.Tweeter:
+                            result = tests.TestSingle<RedditModel>(benchmark, Strategies.GetStrategy());
+                            break;
+                        case ModelDataType.Youtube:
+                            result = tests.TestSingle<RedditModel>(benchmark, Strategies.GetStrategy());
+                            break;
+                        default:
+                            throw new ArgumentOutOfRangeException();
+                    }
+                    ViewModel.Results.Add(result);
+                    ViewModel.AddPoints(result.Points, benchmark.ToString());
+                }
+                ScreenShot();
             }
         }
 
@@ -116,7 +187,43 @@ namespace Benchmark.GUI
 
         private void Clear_Clicked(object sender, RoutedEventArgs e)
         {
+            ScreenShot();
             ViewModel.ClearResults();
+        }
+
+        private void ScreenShot()
+        {
+            var left = Screen.PrimaryScreen.Bounds.X;
+            var top = Screen.PrimaryScreen.Bounds.Y;
+            var right = Screen.PrimaryScreen.Bounds.X + Screen.PrimaryScreen.Bounds.Width;
+            var bottom = Screen.PrimaryScreen.Bounds.Y + Screen.PrimaryScreen.Bounds.Height;
+            var width = right - left;
+            var height = bottom - top;
+            Thread.Sleep(1000);
+            using (Bitmap bmp = new Bitmap((int)width,
+                (int)height))
+            {
+                using (Graphics g = Graphics.FromImage(bmp))
+                {
+                    String filename = StrategiesCmb.SelectedValue + " " + selectedModel+" "+ Strategies.CountOfOperation + " " + DateTime.Now.ToString("ddMMyyyy-hhmmss") + ".png";
+                    Opacity = .0;
+                    g.CopyFromScreen((int)left, (int)top, 0, 0, bmp.Size);
+                    bmp.Save("G:\\[Mgr]\\screens\\" + filename.Replace('/','-'));
+                    Opacity = 1;
+                }
+            }
+        }
+
+        private void Chart_LayoutUpdated(object sender, EventArgs e)
+        {
+        }
+
+        private void OXplot_IsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
+        {
+            if (!ViewModel.Results.IsEmpty())
+            {
+                ScreenShot();
+            }
         }
     }
 }

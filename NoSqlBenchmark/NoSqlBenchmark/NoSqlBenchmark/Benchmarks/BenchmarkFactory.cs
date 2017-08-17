@@ -25,6 +25,10 @@ namespace NoSqlBenchmark.Benchmarks
                     return new RavenDbBenchmark();
                 case BenchmarkType.Couchbase:
                     return new CouchbaaseBenchmark();
+                case BenchmarkType.OrientDb:
+                    return new OrientDbBenchmark();
+                case BenchmarkType.Riak:
+                    return new RiakBenchmark();
                 default:
                     throw new ArgumentOutOfRangeException(nameof(benchmarkType), benchmarkType, null);
             }
@@ -32,13 +36,16 @@ namespace NoSqlBenchmark.Benchmarks
 
         public IList<IBenchmark> GetAllBenchmarks(ModelDataType modelType)
         {
-            var benchmarks = new List<IBenchmark>();
-            benchmarks.Add(GetMongoBenchmark(modelType));
-            benchmarks.Add(new MemcachedBenchmark());
-            benchmarks.Add(GetRedisBenchmark(modelType));
-            benchmarks.Add(new CouchbaaseBenchmark());
-            benchmarks.Add(new RiakBenchmark());
-            
+            var benchmarks = new List<IBenchmark>
+            {
+                GetMongoBenchmark(modelType),
+                new MemcachedBenchmark(),
+                GetRedisBenchmark(modelType),
+                new CouchbaaseBenchmark(),
+                new RiakBenchmark(),
+                new OrientDbBenchmark()
+            };
+
             //benchmarks.Add(new RavenDbBenchmark());
             return benchmarks;
         }
@@ -47,10 +54,10 @@ namespace NoSqlBenchmark.Benchmarks
         {
             switch (modelType)
             {
-                case ModelDataType.News:
-                    return new DymanoDbBenchmark<News>();
-                case ModelDataType.Bank:
-                    return new DymanoDbBenchmark<Bank>();
+                case ModelDataType.Reddit:
+                    return new DymanoDbBenchmark<RedditModel>();
+                case ModelDataType.Tweeter:
+                    return new DymanoDbBenchmark<YoutubeModel>();
                 default:
                     throw new ArgumentOutOfRangeException(nameof(modelType), modelType, null);
             }
@@ -60,10 +67,12 @@ namespace NoSqlBenchmark.Benchmarks
         {
             switch (modelType)
             {
-                case ModelDataType.News:
-                    return new RedisBenchmark<News>();
-                case ModelDataType.Bank:
-                    return new RedisBenchmark<Bank>();
+                case ModelDataType.Reddit:
+                    return new RedisBenchmark<RedditModel>();
+                case ModelDataType.Tweeter:
+                    return new RedisBenchmark<TweeterModel>();
+                case ModelDataType.Youtube:
+                    return new RedisBenchmark<YoutubeModel>();
                 default:
                     throw new ArgumentOutOfRangeException(nameof(modelType), modelType, null);
             }
@@ -73,10 +82,12 @@ namespace NoSqlBenchmark.Benchmarks
         {
             switch (modelType)
             {
-                case ModelDataType.News:
-                    return new MongoDbBenchmark<News>();
-                case ModelDataType.Bank:
-                    return new MongoDbBenchmark<Bank>();
+                case ModelDataType.Reddit:
+                    return new MongoDbBenchmark<RedditModel>();
+                case ModelDataType.Tweeter:
+                    return new MongoDbBenchmark<TweeterModel>();
+                case ModelDataType.Youtube:
+                    return new MongoDbBenchmark<YoutubeModel>();
                 default:
                     throw new ArgumentOutOfRangeException(nameof(modelType), modelType, null);
             }
@@ -91,6 +102,8 @@ namespace NoSqlBenchmark.Benchmarks
         MongoDB,
         Redis,
         RavenDB,
-        Couchbase
+        Couchbase,
+        OrientDb,
+        Riak
     }
 }

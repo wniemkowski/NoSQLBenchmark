@@ -1,6 +1,8 @@
+using System;
 using System.Configuration;
 using NoSqlBenchmark.Benchmarks.Interfaces;
 using NoSqlBenchmark.Models;
+using ServiceStack.Common.Extensions;
 using ServiceStack.Redis;
 using ServiceStack.Redis.Generic;
 

@@ -36,7 +36,6 @@ namespace NoSqlBenchmark.Benchmarks.DbConnectors
                 Servers = new List<Uri> { new Uri(@"http://" + ConfigurationManager.AppSettings["DbIpAddress"] + ":8091") }
             });
             _bucket = ClusterHelper.GetBucket("default");
-            FlushDb();
         }
 
         public T Insert<T>(T data) where T : BaseModel
@@ -65,6 +64,7 @@ namespace NoSqlBenchmark.Benchmarks.DbConnectors
             var bucket = ClusterHelper.GetBucket("default");
             var bucketManager = bucket.CreateManager(credential, credential);
             bucketManager.Flush();
+            ClusterHelper.Close();
         }
 
         public void InitScheme<T>() where T : BaseModel

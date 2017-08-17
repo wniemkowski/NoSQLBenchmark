@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using NoSqlBenchmark.Benchmarks.DbConnectors;
 using NoSqlBenchmark.Benchmarks.Interfaces;
 using NoSqlBenchmark.Models;
@@ -19,12 +20,15 @@ namespace NoSqlBenchmark.Benchmarks
         {
             _db.FlushDb();
         }
-        
+
+        public List<long> Delays { get; set; }
+
         public void Test<T>(IScenarioStrategy scenario) where T : BaseModel
         {
             var mf = new ModelFactory();
             var dataType = mf.GetModelDataType<T>();
             scenario.ExecuteStrategy(_db, dataType);
+            Delays = scenario.Delays;
         }
 
         public override string ToString()

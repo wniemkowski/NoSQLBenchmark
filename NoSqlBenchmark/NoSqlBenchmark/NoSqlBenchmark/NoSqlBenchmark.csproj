@@ -58,8 +58,8 @@
       <HintPath>..\packages\Common.Logging.Core.3.3.1\lib\net40\Common.Logging.Core.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Couchbase.NetClient, Version=2.4.6.0, Culture=neutral, PublicKeyToken=05e9c6b5a9ec94c2, processorArchitecture=MSIL">
-      <HintPath>..\packages\CouchbaseNetClient.2.4.6\lib\net45\Couchbase.NetClient.dll</HintPath>
+    <Reference Include="Couchbase.NetClient, Version=2.4.8.0, Culture=neutral, PublicKeyToken=05e9c6b5a9ec94c2, processorArchitecture=MSIL">
+      <HintPath>..\packages\CouchbaseNetClient.2.4.8\lib\net45\Couchbase.NetClient.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="DotNetCross.Memory.Unsafe, Version=0.2.3.0, Culture=neutral, processorArchitecture=MSIL">
@@ -68,6 +68,14 @@
     </Reference>
     <Reference Include="Enyim.Caching, Version=2.16.0.0, Culture=neutral, PublicKeyToken=cec98615db04012e, processorArchitecture=MSIL">
       <HintPath>..\packages\EnyimMemcached.2.16.0\lib\net35\Enyim.Caching.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Faker.NET4, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Faker.Net.1.0.3\lib\net40\Faker.NET4.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="FizzWare.NBuilder, Version=4.0.0.115, Culture=neutral, PublicKeyToken=5651b03e12e42c12, processorArchitecture=MSIL">
+      <HintPath>..\packages\NBuilder.4.0.0\lib\net40\FizzWare.NBuilder.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Hazelcast.Net, Version=3.8.1.0, Culture=neutral, PublicKeyToken=696d29173d68bfe5, processorArchitecture=MSIL">
@@ -115,6 +123,10 @@
       <HintPath>..\packages\Newtonsoft.Json.10.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="OrientDB-Net.binary.Innov8tive, Version=0.1.12.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\OrientDB-Net.binary.Innov8tive.0.1.12\lib\net451\OrientDB-Net.binary.Innov8tive.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="protobuf-net, Version=2.0.0.668, Culture=neutral, PublicKeyToken=257b51d87d2e4d67, processorArchitecture=MSIL">
       <HintPath>..\packages\protobuf-net.2.0.0.668\lib\net40\protobuf-net.dll</HintPath>
       <Private>True</Private>
@@ -129,6 +141,10 @@
     </Reference>
     <Reference Include="Raven.Client.Lightweight, Version=3.5.3.0, Culture=neutral, PublicKeyToken=37f41c7f99471593, processorArchitecture=MSIL">
       <HintPath>..\packages\RavenDB.Client.3.5.3\lib\net45\Raven.Client.Lightweight.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Renci.SshNet, Version=2016.0.0.0, Culture=neutral, PublicKeyToken=1cee9f8bde3db106, processorArchitecture=MSIL">
+      <HintPath>..\packages\SSH.NET.2016.0.0\lib\net40\Renci.SshNet.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="RiakClient, Version=2.0.0.0, Culture=neutral, PublicKeyToken=4ad54fc1c28a86cb, processorArchitecture=MSIL">
@@ -227,6 +243,10 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="System.Numerics" />
+    <Reference Include="System.Numerics.Vectors, Version=4.1.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Numerics.Vectors.4.1.1\lib\net46\System.Numerics.Vectors.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System.Reflection.TypeExtensions, Version=4.1.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Reflection.TypeExtensions.4.3.0\lib\net462\System.Reflection.TypeExtensions.dll</HintPath>
       <Private>True</Private>
@@ -288,14 +308,16 @@
     <Compile Include="Benchmarks\DbConnectors\CouchbaseConnector.cs" />
     <Compile Include="Benchmarks\DbConnectors\CouchDbConnector.cs" />
     <Compile Include="Benchmarks\DbConnectors\DynamoDbConnector.cs" />
+    <Compile Include="Benchmarks\DbConnectors\OrientDbConnector.cs" />
     <Compile Include="Benchmarks\DbConnectors\RavenDbConnector.cs" />
     <Compile Include="Benchmarks\Interfaces\IDbConnector.cs" />
     <Compile Include="Benchmarks\DbConnectors\MemcachedConnector.cs" />
     <Compile Include="Benchmarks\DbConnectors\RedisConnector.cs" />
     <Compile Include="Benchmarks\DbConnectors\MongoConnector.cs" />
+    <Compile Include="Benchmarks\OrientDbBenchmark.cs" />
     <Compile Include="Benchmarks\RavenDbBenchmark.cs" />
     <Compile Include="Benchmarks\RiakBenchmark.cs" />
-    <Compile Include="Models\Bank.cs" />
+    <Compile Include="Models\Tweeter.cs" />
     <Compile Include="Models\ModelFactory.cs" />
     <Compile Include="Models\BaseModel.cs" />
     <Compile Include="Benchmarks\CouchbaaseBenchmark.cs" />
@@ -303,7 +325,8 @@
     <Compile Include="Benchmarks\Interfaces\IBenchmark.cs" />
     <Compile Include="Benchmarks\MemcachedBenchmark.cs" />
     <Compile Include="Benchmarks\MongoDbBenchmark.cs" />
-    <Compile Include="Models\News.cs" />
+    <Compile Include="Models\RedditModel.cs" />
+    <Compile Include="Models\YoutubeModel.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Benchmarks\RedisBenchmark.cs" />
