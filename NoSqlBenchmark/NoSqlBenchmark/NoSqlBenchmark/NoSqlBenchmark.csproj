@@ -296,6 +296,7 @@
       <HintPath>..\packages\System.ValueTuple.4.3.1\lib\netstandard1.0\System.ValueTuple.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -336,6 +337,7 @@
     <Compile Include="TestScenarios\JustInsertsStrategy.cs" />
     <Compile Include="TestScenarios\JustReadsStrategy.cs" />
     <Compile Include="TestScenarios\ReadsToWritesWithRatioStrategy.cs" />
+    <Compile Include="TestScenarios\UpdateStrategy.cs" />
     <Compile Include="TestScenarios\WritesToReadsWithRatioStrategy.cs" />
   </ItemGroup>
   <ItemGroup>

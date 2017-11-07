@@ -102,8 +102,6 @@ namespace Benchmark.GUI
             ViewModel.AddPoints(result.Points, benchmark.ToString());
             Chart.InvalidateVisual();
             OXplot.InvalidateVisual();
-            Thread.Sleep(1000);
-            ScreenShot();
         }
 
         private void StartDB_Clicked(object sender, RoutedEventArgs e)
@@ -149,10 +147,10 @@ namespace Benchmark.GUI
                             result = tests.TestSingle<RedditModel>(benchmark, Strategies.GetStrategy()); 
                             break;
                         case ModelDataType.Tweeter:
-                            result = tests.TestSingle<RedditModel>(benchmark, Strategies.GetStrategy());
+                            result = tests.TestSingle<TweeterModel>(benchmark, Strategies.GetStrategy());
                             break;
                         case ModelDataType.Youtube:
-                            result = tests.TestSingle<RedditModel>(benchmark, Strategies.GetStrategy());
+                            result = tests.TestSingle<YoutubeModel>(benchmark, Strategies.GetStrategy());
                             break;
                         default:
                             throw new ArgumentOutOfRangeException();
@@ -160,7 +158,6 @@ namespace Benchmark.GUI
                     ViewModel.Results.Add(result);
                     ViewModel.AddPoints(result.Points, benchmark.ToString());
                 }
-                ScreenShot();
             }
         }
 
@@ -199,17 +196,34 @@ namespace Benchmark.GUI
             var bottom = Screen.PrimaryScreen.Bounds.Y + Screen.PrimaryScreen.Bounds.Height;
             var width = right - left;
             var height = bottom - top;
+            String filename;
             Thread.Sleep(1000);
             using (Bitmap bmp = new Bitmap((int)width,
                 (int)height))
+
             {
                 using (Graphics g = Graphics.FromImage(bmp))
                 {
-                    String filename = StrategiesCmb.SelectedValue + " " + selectedModel+" "+ Strategies.CountOfOperation + " " + DateTime.Now.ToString("ddMMyyyy-hhmmss") + ".png";
+                    filename = StrategiesCmb.SelectedValue + " " + selectedModel + " " + Strategies.CountOfOperation + " " + DateTime.Now.ToString("ddMMyyyy-hhmmss");
                     Opacity = .0;
                     g.CopyFromScreen((int)left, (int)top, 0, 0, bmp.Size);
-                    bmp.Save("G:\\[Mgr]\\screens\\" + filename.Replace('/','-'));
+                    bmp.Save("G:\\[Mgr]\\screens\\" + filename.Replace('/', '-') + ".png");
                     Opacity = 1;
+                }
+            }
+
+            using (var file = File.CreateText("G:\\[Mgr]\\screens\\" + filename.Replace('/', '-') + ".csv"))
+            {
+                file.WriteLine("CouchBase,Memcached,Mongo,Orient,Redis,Riak");
+                for (int i = 1; i < ViewModel.PointsCouchBase.Count; i++)
+                {
+                    file.WriteLine($"{ViewModel.PointsCouchBase[i].Y}," +
+                                   $"{ViewModel.PointsMemcached[i].Y}," +
+                                   $"{ViewModel.PointsMongo[i].Y}," +
+                                   $"{ViewModel.PointsOrient[i].Y}," +
+                                   $"{ViewModel.PointsRedis[i].Y}," +
+                                   $"{ViewModel.PointsRiak[i].Y},");
+
                 }
             }
         }
@@ -222,7 +236,7 @@ namespace Benchmark.GUI
         {
             if (!ViewModel.Results.IsEmpty())
             {
-                ScreenShot();
+                //ScreenShot();
             }
         }
     }

@@ -64,7 +64,7 @@ namespace NoSqlBenchmark.Benchmarks.DbConnectors
             var bucket = ClusterHelper.GetBucket("default");
             var bucketManager = bucket.CreateManager(credential, credential);
             bucketManager.Flush();
-            ClusterHelper.Close();
+            //ClusterHelper.Close();
         }
 
         public void InitScheme<T>() where T : BaseModel

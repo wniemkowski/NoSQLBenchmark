@@ -1,0 +1,137 @@
+{
+	"results": [{
+			"text": "Et incidunt magni facilis facere ad voluptatem qui atque ipsa.",
+			"to_user_id": 1,
+			"to_user": "lillian",
+			"from_user": "Clemens Wolf PhD",
+			"id": 391149223,
+			"from_user_id": 1334503651,
+			"iso_language_code": "46405-2785",
+			"source": "genoveva",
+			"profile_image_url": "jaskolski.us",
+			"created_at": "14.01.1999",
+			"metadata": {
+				"result_type": "alias",
+				"recent_retweets": 1846606945
+			}
+		}, {
+			"text": "Ut sapiente nulla eius et voluptatem mollitia illum cupiditate non quia numquam nisi.",
+			"to_user_id": 2,
+			"to_user": "hailee",
+			"from_user": "Frida Parisian",
+			"id": 1796113743,
+			"from_user_id": 1982038624,
+			"iso_language_code": "56858-3465",
+			"source": "thaddeus_mcclure",
+			"profile_image_url": "rohanschiller.us",
+			"created_at": "08.03.2007",
+			"metadata": {
+				"result_type": "alias",
+				"recent_retweets": 1217049659
+			}
+		}, {
+			"text": "Velit eaque rerum eum porro eligendi consequatur repellendus minus voluptatem.",
+			"to_user_id": 3,
+			"to_user": "reuben",
+			"from_user": "Kristoffer Muller",
+			"id": 476679885,
+			"from_user_id": 1188021840,
+			"iso_language_code": "60264",
+			"source": "raphaelle",
+			"profile_image_url": "hegmann.us",
+			"created_at": "03.12.2009",
+			"metadata": {
+				"result_type": "alias",
+				"recent_retweets": 1373172138
+			}
+		}, {
+			"text": "In id labore reprehenderit impedit ea voluptates quia praesentium totam est.",
+			"to_user_id": 4,
+			"to_user": "cristal",
+			"from_user": "Felicita Huels",
+			"id": 1859231873,
+			"from_user_id": 1696270983,
+			"iso_language_code": "43302",
+			"source": "giovanna",
+			"profile_image_url": "schuppe.us",
+			"created_at": "27.10.2006",
+			"metadata": {
+				"result_type": "alias",
+				"recent_retweets": 639301305
+			}
+		}, {
+			"text": "Non repellat repellendus est fugit officia dignissimos eius animi maiores eligendi.",
+			"to_user_id": 5,
+			"to_user": "savannah",
+			"from_user": "Laverna Rippin",
+			"id": 773450864,
+			"from_user_id": 1268692014,
+			"iso_language_code": "46052-0886",
+			"source": "eliseo",
+			"profile_image_url": "crist.ca",
+			"created_at": "27.02.2014",
+			"metadata": {
+				"result_type": "alias",
+				"recent_retweets": 1549368018
+			}
+		}, {
+			"text": "Animi hic nesciunt laboriosam dolores nam quam nobis dicta minima minus at autem.",
+			"to_user_id": 6,
+			"to_user": "bridie",
+			"from_user": "Maia Boehm",
+			"id": 2024432717,
+			"from_user_id": 1721490946,
+			"iso_language_code": "74242-5238",
+			"source": "damaris_bartell",
+			"profile_image_url": "romaguerawilkinson.com",
+			"created_at": "17.04.1999",
+			"metadata": {
+				"result_type": "alias",
+				"recent_retweets": 1988838548
+			}
+		}, {
+			"text": "Vel voluptas dolorem veritatis magni deleniti rem qui dolorum magni id in.",
+			"to_user_id": 7,
+			"to_user": "marcelle.dooley",
+			"from_user": "Niko Wehner",
+			"id": 484786885,
+			"from_user_id": 855286703,
+			"iso_language_code": "58343",
+			"source": "arvel",
+			"profile_image_url": "ankunding.us",
+			"created_at": "02.01.2012",
+			"metadata": {
+				"result_type": "alias",
+				"recent_retweets": 591667009
+			}
+		}, {
+			"text": "Aliquid perferendis omnis et consequatur quia quis ut reprehenderit quas voluptatem possimus ut cumque.",
+			"to_user_id": 8,
+			"to_user": "raphael",
+			"from_user": "Rebeca Klein",
+			"id": 997785246,
+			"from_user_id": 491324377,
+			"iso_language_code": "27362",
+			"source": "candace.abbott",
+			"profile_image_url": "schaeferdoyle.co.uk",
+			"created_at": "16.05.1994",
+			"metadata": {
+				"result_type": "alias",
+				"recent_retweets": 730568941
+			}
+		}
+	],
+	"since_id": 1509391287,
+	"max_id": 624,
+	"refresh_url": "gaylord.biz",
+	"results_per_page": 99,
+	"next_page": "jerde.biz",
+	"completed_in": 0.74185120488603185,
+	"page": 30,
+	"query": "alias",
+	"Id": 1,
+	"ORID": null,
+	"OVersion": 1,
+	"OClassId": 1,
+	"OClassName": "TweeterModel"
+}

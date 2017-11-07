@@ -2,8 +2,8 @@
 {
     public enum ModelDataType
     {
-        Reddit,
-        Tweeter,
-        Youtube
+        Reddit =12,
+        Tweeter =13,
+        Youtube =14
     }
 }

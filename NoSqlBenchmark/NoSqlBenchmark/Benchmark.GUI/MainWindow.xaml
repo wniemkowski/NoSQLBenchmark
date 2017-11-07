@@ -42,6 +42,10 @@
                     <oxy:LineSeries ItemsSource="{Binding Path=PointsMongo}" Color="DarkGoldenrod" Title="Mongo"/>
                     <oxy:LineSeries ItemsSource="{Binding Path=PointsOrient}" Color="HotPink" Title="Orient"/>
                 </oxy:Plot.Series>
+                <oxy:Plot.Axes>
+                    <oxy:LinearAxis Position="Bottom" Minimum="0" Maximum="1000"/>
+                    <oxy:LogarithmicAxis Position="Left"/>
+                </oxy:Plot.Axes>
             </oxy:Plot>
             <!--<metroChart1:ClusteredBarChart
                 Grid.Row="1"

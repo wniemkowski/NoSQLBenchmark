@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Web.Script.Serialization;
 using Faker;
 using FizzWare.NBuilder;
 using MongoDB.Driver;
@@ -14,17 +16,9 @@ namespace NoSqlBenchmark.Models
         private static IList<TweeterModel> _tweeter;
         private static IList<YoutubeModel> _youtube;
         public static int _iterator;
+        public static int modelId;
         public static int Max { get; set; }
-
-        public BaseModel GetDemoModel<T>() where T:BaseModel
-        {
-            if (typeof(T) == typeof(RedditModel))
-            {
-                return RedditModel.GetDemo();
-            }
-            return new BaseModel();
-        }
-
+        
         public BaseModel GetDemoModel(ModelDataType dataType)
         {
             switch (dataType)
@@ -55,20 +49,21 @@ namespace NoSqlBenchmark.Models
             switch (type)
             {
                 case ModelDataType.Reddit:
+                    modelId = 12;
                     if (_news != null && count >= _news.Count) return;
                     var rlist = Builder<RedditModel>.CreateListOfSize(count).All()
                         .With(n => n.Message = Lorem.Sentence(10))
                         .With(n => n.CreatedBy= Name.FullName(NameFormats.WithPrefix))
-                        .With(n => n.Ids = Builder<int>.CreateListOfSize(10).All()
-                            .With(nr => RandomNumber.Next(1,100))
-                            .Build().ToArray())
+                        .With(n => n.Date = DateTime.Now)
+                        .With(n => n.Ids = Enumerable.Range(1, 10).OrderBy(i => rand.Next()).ToArray())
                         .With(n => n.Op = Builder<OP>.CreateNew()
-                            .With(op => op.Age = Faker.RandomNumber.Next(1,100))
+                            .With(op => op.Age = rand.Next(1,100))
                             .With(op => op.Name = Faker.Name.FullName(NameFormats.WithSuffix))
                             .Build());
                     _news = rlist.Build();
                     break;
                 case ModelDataType.Tweeter:
+                    modelId = 13;
                     if (_tweeter != null && count >= _tweeter.Count) return;
                     var tlist = Builder<TweeterModel>.CreateListOfSize(count).All()
                         .With(n => n.completed_in = rand.NextDouble())
@@ -77,7 +72,7 @@ namespace NoSqlBenchmark.Models
                         .With(n => n.page = rand.Next(1000))
                         .With(n => n.query = Faker.Lorem.GetFirstWord())
                         .With(n => n.refresh_url = Faker.Internet.DomainName())
-                        .With(n => n.results = Builder<Result>.CreateListOfSize(100).All()
+                        .With(n => n.results = Builder<Result>.CreateListOfSize(5).All()
                             .With(r => r.created_at = DateTime.Now.Subtract(TimeSpan.FromDays(rand.Next(10000)))
                                 .ToString("d"))
                             .With(r => r.from_user = Faker.Name.FullName())
@@ -93,10 +88,11 @@ namespace NoSqlBenchmark.Models
                             .With(r => r.to_user = Faker.Internet.UserName()).Build())
                         .With(n => n.results_per_page = rand.Next(100))
                         .With(n => n.since_id = rand.Next());
-
+                    
                     _tweeter = tlist.Build();
                     break;
                 case ModelDataType.Youtube:
+                    modelId = 14;
                     if (_youtube != null && count >= _youtube.Count) return;
                     var ylist = Builder<YoutubeModel>.CreateListOfSize(count).All()
                         .With(y => y.apiVersion = rand.NextDouble().ToString())
@@ -140,6 +136,7 @@ namespace NoSqlBenchmark.Models
                             .With(d => d.uploaded = DateTime.Now.Subtract(TimeSpan.FromDays(rand.Next(10000))))
                             .With(d => d.uploader = Faker.Name.FullName()).Build());
                     _youtube = ylist.Build();
+
                     break;
                 default:
                     throw new ArgumentOutOfRangeException(nameof(type), type, null);

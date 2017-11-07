@@ -11,6 +11,7 @@ namespace NoSqlBenchmark.Benchmarks.DbConnectors
     public class OrientDbConnector : IDbConnector
     {
         private ODatabase _db;
+        private ModelFactory mf = new ModelFactory();
         
         public void Connect()
         {
@@ -42,7 +43,6 @@ namespace NoSqlBenchmark.Benchmarks.DbConnectors
                     .Create.Class(typeof(YoutubeModel).Name)
                     .Run();
             }
-
             FlushDb();
         }
 
@@ -62,8 +62,7 @@ namespace NoSqlBenchmark.Benchmarks.DbConnectors
 
         public T Read<T>(long id) where T : BaseModel
         {
-            //var d = _db.Command("LOAD Record #12:" + id);
-            var data = _db.Select().From($"[#12:{id}]").ToList<BaseModel>().FirstOrDefault();
+            var data = _db.Select().From($"[#{ModelFactory.modelId}:{id}]").ToList<BaseModel>().FirstOrDefault();
             return (T)new BaseModel();
         }
 

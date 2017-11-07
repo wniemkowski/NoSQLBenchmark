@@ -11,18 +11,12 @@ namespace NoSqlBenchmark.Benchmarks
         {
             switch (benchmarkType)
             {
-                case BenchmarkType.CouchDB:
-                    return new CouchDbBenchmark();
-                case BenchmarkType.DynamoDB:
-                    return GetDynamoBenchmark(modelType);
                 case BenchmarkType.Memcached:
                     return new MemcachedBenchmark();
                 case BenchmarkType.MongoDB:
                     return GetMongoBenchmark(modelType);
                 case BenchmarkType.Redis:
                     return GetRedisBenchmark(modelType);
-                case BenchmarkType.RavenDB:
-                    return new RavenDbBenchmark();
                 case BenchmarkType.Couchbase:
                     return new CouchbaaseBenchmark();
                 case BenchmarkType.OrientDb:

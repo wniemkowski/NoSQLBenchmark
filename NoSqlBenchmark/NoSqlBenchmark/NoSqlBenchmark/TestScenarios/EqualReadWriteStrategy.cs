@@ -1,5 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
 using NoSqlBenchmark.Benchmarks;
 using NoSqlBenchmark.Benchmarks.Interfaces;
 using NoSqlBenchmark.Models;
@@ -16,20 +18,29 @@ namespace NoSqlBenchmark.TestScenarios
             var mf = new ModelFactory();
             var stopwatch = new Stopwatch();
             Delays = new List<long>();
+            var tmp = new List<long>();
+
             for (var i = 0; i < CountOfOperations; i++)
             {
-                if (i % 100 == 99)
-                    stopwatch.Start();
+                stopwatch.Start();
 
                 var data = mf.GetDemoModel(dataType);
-                db.Insert(data);
-                db.Read<BaseModel>(data.Id);
-
-                if (stopwatch.IsRunning)
+                try
                 {
-                    stopwatch.Stop();
-                    Delays.Add(stopwatch.ElapsedTicks);
-                    stopwatch.Reset();
+                    db.Insert(data);
+                    db.Read<BaseModel>(data.Id);
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine("ERROR");
+                }
+                stopwatch.Stop();
+                tmp.Add((stopwatch.ElapsedMilliseconds * 1000));
+                stopwatch.Reset();
+                if (tmp.Count == 100)
+                {
+                    Delays.Add((long)tmp.Average(x => x));
+                    tmp = new List<long>();
                 }
             }
         }

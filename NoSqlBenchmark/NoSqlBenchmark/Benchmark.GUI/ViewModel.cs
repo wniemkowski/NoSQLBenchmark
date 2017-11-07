@@ -59,8 +59,8 @@ namespace Benchmark.GUI
 
         public void AddPoints(List<DataPoint> resultPoints, string dbName)
         {
-            resultPoints.RemoveAt(0);
-            resultPoints.ForEach( x => new DataPoint(x.X-100,x.Y));
+            //resultPoints.RemoveAt(0);
+            //resultPoints.ForEach( x => new DataPoint(x.X-100,x.Y));
             ClearPoints(dbName);
             switch (dbName)
             {
@@ -149,7 +149,8 @@ namespace Benchmark.GUI
                 "Reads",
                 "Writes/Reads - 1/10",
                 "Writes/Reads - 1/1",
-                "Writes/Reads - 10/1"
+                "Writes/Reads - 10/1",
+                "Updates"
             };
         }
 
@@ -159,7 +160,7 @@ namespace Benchmark.GUI
             {
                 case "Writes": return new JustInsertsStrategy {CountOfOperations = CountOfOperation};
                 case "Reads": return new JustReadsStrategy {CountOfOperations = CountOfOperation};
-                case "Writes/Reads - 1/10":
+                case "Writes/Reads - 10/1":
                     return
                         new WritesToReadsWithRatioStrategy
                         {
@@ -168,16 +169,22 @@ namespace Benchmark.GUI
                         };
                 case "Writes/Reads - 1/1":
                     return
-                        new EqualReadWriteStrategy()
+                        new EqualReadWriteStrategy
                         {
                             CountOfOperations = CountOfOperation
                         };
-                case "Writes/Reads - 10/1":
+                case "Writes/Reads - 1/10":
                     return
-                        new ReadsToWritesWithRatioStrategy()
+                        new ReadsToWritesWithRatioStrategy
                         {
                             CountOfOperations = CountOfOperation,
                             ReadsToWritesRatio = 0.1f
+                        };
+                case "Updates":
+                    return
+                        new UpdateStrategy
+                        {
+                            CountOfOperations = CountOfOperation
                         };
                 default: throw new ArgumentOutOfRangeException();
             }

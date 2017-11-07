@@ -15,7 +15,6 @@ namespace NoSqlBenchmark.Benchmarks.DbConnectors
         public void Connect()
         {
             _client = new MongoClient("mongodb://" + ConfigurationManager.AppSettings["DbIpAddress"] + ":27017");
-            //_client.Settings.ConnectTimeout = TimeSpan.FromSeconds(3);
             _db = _client.GetDatabase("test");
             InitScheme<TA>();
             FlushDb();

@@ -29,7 +29,5 @@ namespace Benchmark.GUI
                 Points = value;
             }
         }
-
-        public long DelaysAvg { get { return (long) Delays.Average(x => x); }}
     }
 }
